@@ -1,18 +1,17 @@
 // import { PrismaClient } from '@prisma/client'
-import prisma from "../../../prisma/prisma"
-import type { NextApiRequest, NextApiResponse } from 'next'
+import prisma from "../../../prisma/prisma";
+import type { NextApiRequest, NextApiResponse } from "next";
 
 const start = Date.now();
 
-export default async function api(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  console.log(`url: `, req.url);
 
-  console.log(`url: `, req.url)
-
-  const url = process.env.NODE_ENV !== 'production' ? new URL(req.url, 'http://localhost:3000') : new URL(req.url)
+  const url = process.env.NODE_ENV !== "production" ? new URL(req.url, "http://localhost:3000") : new URL(req.url);
 
   const count = toNumber(url.searchParams.get("count"));
 
-  console.log(`query count: `, count)
+  console.log(`query count: `, count);
 
   const time = Date.now();
 
@@ -21,13 +20,13 @@ export default async function api(req: NextApiRequest, res: NextApiResponse) {
     data = await prisma.employees.findMany({ take: 10 });
   }
 
-  return res.json(
+  return res.status(200).json(
     {
       data,
       queryDuration: Date.now() - time,
       invocationIsCold: start === time,
       // invocationRegion: (req.headers.get("x-vercel-id") ?? "").split(":")[1] || null,
-    },
+    }
     // {
     //   headers: { "x-edge-is-cold": start === time ? "1" : "0" },
     // }
