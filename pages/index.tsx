@@ -5,7 +5,7 @@ import { CircleStackIcon, BoltIcon } from "@heroicons/react/16/solid";
 import Head from "next/head";
 import GithubCorner from "@/components/github-corner";
 
-const ATTEMPTS = 10;
+const ATTEMPTS = 3;
 
 type Region = "regional" | "global";
 type Runtime = "edge" | "node";
@@ -22,11 +22,13 @@ export default function Page() {
     global: [],
   });
 
-  const runTest = useCallback(async (dataService: string, type: Region, queryCount: number) => {
-    console.log(`runTest`, dataService, type, queryCount);
+  const runTest = useCallback(async (runtime: Runtime, dataService: string, type: Region, queryCount: number) => {
+    console.log(`runTest:`, runtime, dataService, type, queryCount);
+    const path = `/api/${runtime}/${dataService}-${type}?count=${queryCount}`
+    console.log(`path:`, path);
     try {
       const start = Date.now();
-      const res = await fetch(`/api/${runtime}/${dataService}-${type}?count=${queryCount}`);
+      const res = await fetch(path);
       const data = await res.json();
       const end = Date.now();
       return {
@@ -41,6 +43,9 @@ export default function Page() {
 
   const onRunTest = useCallback(async () => {
     console.log(`Run Test button clicked`);
+    console.log(`runtime: `, runtime);
+    console.log(`queries: `, queryCount);
+
     setIsTestRunning(true);
     setData({ regional: [], global: [] });
 
@@ -49,11 +54,11 @@ export default function Page() {
       let globalValue = null;
 
       if (shouldTestRegional) {
-        regionalValue = await runTest(dataService, "regional", queryCount);
+        regionalValue = await runTest(runtime, dataService, "regional", queryCount);
       }
 
       if (shouldTestGlobal) {
-        globalValue = await runTest(dataService, "global", queryCount);
+        globalValue = await runTest(runtime, dataService, "global", queryCount);
       }
 
       setData((data) => {
@@ -66,7 +71,7 @@ export default function Page() {
     }
 
     setIsTestRunning(false);
-  }, [runTest, queryCount, dataService, shouldTestGlobal, shouldTestRegional]);
+  }, [runTest, runtime, queryCount, dataService, shouldTestGlobal, shouldTestRegional]);
 
   return (
     <main className="p-6 max-w-5xl flex flex-col gap-3">
@@ -111,6 +116,7 @@ export default function Page() {
         .
       </p>
       <form className="flex flex-col gap-5 bg-gray-100 dark:bg-gray-800 p-5 my-5 rounded">
+        {/* Data service */}
         <div className="flex flex-col gap-1">
           <p className="font-bold">Data service</p>
           <div className="py-1 inline-flex">
@@ -136,6 +142,7 @@ export default function Page() {
           </div>
         </div>
 
+        {/* Location */}
         <div className="flex flex-col gap-1">
           <p className="font-bold">Location</p>
           <p className="text-gray-600 dark:text-gray-300 text-sm">
@@ -166,6 +173,7 @@ export default function Page() {
           </p>
         </div>
 
+        {/* Edge vs Serverless */}
         <div className="flex flex-col gap-1">
           <p className="font-bold">Edge vs Serverless</p>
           <p className="text-gray-600 dark:text-gray-300 text-sm">
@@ -195,7 +203,7 @@ export default function Page() {
           </p>
         </div>
 
-
+        {/* Waterfall */}
         <div className="flex flex-col gap-1">
           <p className="font-bold">Waterfall</p>
           <p className="text-gray-600 dark:text-gray-300 text-sm">
@@ -308,8 +316,6 @@ const dataFormatter = (number: number) => `${Intl.NumberFormat("us").format(numb
 function Code({ className = "", children }) {
   return <code className={`bg-gray-200 dark:bg-gray-700 text-sm p-1 rounded ${className}`}>{children}</code>;
 }
-
-
 
 function NeonIcon() {
   return (
