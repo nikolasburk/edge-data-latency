@@ -16,7 +16,7 @@ export default function Page() {
   const [shouldTestRegional, setShouldTestRegional] = useState(true);
   const [runtime, setRuntime] = useState("edge" as Runtime)
   const [queryCount, setQueryCount] = useState(1);
-  const [dataService, setDataService] = useState("");
+  const [dataService, setDataService] = useState("prisma-neon");
   const [data, setData] = useState({
     regional: [],
     global: [],
@@ -125,9 +125,10 @@ export default function Page() {
               className="max-w-xs"
               placeholder="Select Database"
               onValueChange={(v) => setDataService(v)}
+              value="prisma-neon"
             >
               <SelectItem data-testid="prisma-neon" value="prisma-neon" icon={null}>
-                Prisma ORM (w/ Neon)
+                Prisma ORM (w/ Neon Serverless)
               </SelectItem>
               <SelectItem data-testid="neon" value="neon" icon={NeonIcon}>
                 Neon (@neondatabase/serverless driver)
