@@ -22,7 +22,7 @@ export default async function api(req: Request, ctx: any) {
 
   let data = null;
   for (let i = 0; i < count; i++) {
-    data = await prisma.employee.findMany({ take: 10 });
+    data = await prisma.employees.findMany({ take: 10 });
   }
 
   return Response.json(

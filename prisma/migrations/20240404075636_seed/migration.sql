@@ -1,19 +1,19 @@
 -- Seed script for creating 50 employees
 
--- Drop the table if it exists
-DROP TABLE IF EXISTS "employee";
+-- -- Drop the table if it exists
+-- DROP TABLE IF EXISTS "employees";
 
--- Create the table
-CREATE TABLE "employee" (
-    "emp_no" SERIAL NOT NULL,
-    "first_name" TEXT NOT NULL,
-    "last_name" TEXT NOT NULL,
+-- -- Create the table
+-- CREATE TABLE "employees" (
+--     "emp_no" SERIAL NOT NULL,
+--     "first_name" TEXT NOT NULL,
+--     "last_name" TEXT NOT NULL,
 
-    CONSTRAINT "employee_pkey" PRIMARY KEY ("emp_no")
-);
+--     CONSTRAINT "employee_pkey" PRIMARY KEY ("emp_no")
+-- );
 
 -- Insert 50 employees
-INSERT INTO "employee" ("first_name", "last_name") VALUES
+INSERT INTO "employees" ("first_name", "last_name") VALUES
     ('John', 'Doe'),
     ('Jane', 'Smith'),
     ('Michael', 'Johnson'),
@@ -65,4 +65,4 @@ INSERT INTO "employee" ("first_name", "last_name") VALUES
     ('Amy', 'Rivera');
 
 -- Display the inserted employees
-SELECT * FROM "employee";
+-- SELECT * FROM "employees";

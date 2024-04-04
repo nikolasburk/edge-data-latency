@@ -11,10 +11,10 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("NEON_DATABASE_URL")
 }
 
-model employee {
+model employees {
   emp_no     Int    @id @default(autoincrement())
   first_name String
   last_name  String
