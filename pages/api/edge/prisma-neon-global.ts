@@ -9,7 +9,7 @@ export const config = {
 
 const start = Date.now();
 
-export default async function api(req: Request, ctx: any) {
+export default async function api(req: Request) {
 
   console.log(`url: `, req.url)
 
@@ -31,7 +31,7 @@ export default async function api(req: Request, ctx: any) {
       data,
       queryDuration: Date.now() - time,
       invocationIsCold: start === time,
-      invocationRegion: (req.headers.get("x-vercel-id") ?? "").split(":")[1] || null,
+      // invocationRegion: (req.headers.get("x-vercel-id") ?? "").split(":")[1] || null,
     },
     {
       headers: { "x-edge-is-cold": start === time ? "1" : "0" },
