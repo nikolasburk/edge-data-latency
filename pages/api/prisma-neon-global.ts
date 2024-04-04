@@ -13,11 +13,11 @@ export default async function api(req: Request, ctx: any) {
 
   console.log(`url: `, req.url)
 
-  const neon = new Pool({ connectionString: process.env.DATABASE_URL })
+  const neon = new Pool({ connectionString: process.env.NEON_DATABASE_URL })
   const adapter = new PrismaNeon(neon)
   const prisma = new PrismaClient({ adapter })
 
-  const count = toNumber(new URL(req.url, 'http://localhost:3000').searchParams.get("count"));
+  const count = toNumber(new URL(req.url).searchParams.get("count"));
   const time = Date.now();
 
   let data = null;
