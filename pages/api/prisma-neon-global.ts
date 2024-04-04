@@ -1,14 +1,22 @@
-import { prisma } from "../../prisma/prisma";
+import { PrismaClient } from '@prisma/client'
+import { PrismaNeon } from '@prisma/adapter-neon'
+import { Pool } from '@neondatabase/serverless'
 import { NextRequest as Request, NextResponse as Response } from "next/server";
 
-// export const config = {
-//   runtime: "edge",
-// };
+export const config = {
+  runtime: "edge",
+};
 
 const start = Date.now();
 
 export default async function api(req: Request, ctx: any) {
-  console.log(`url:`, req.url)
+
+  console.log(`url: `, req.url)
+
+  const neon = new Pool({ connectionString: process.env.DATABASE_URL })
+  const adapter = new PrismaNeon(neon)
+  const prisma = new PrismaClient({ adapter })
+
   const count = toNumber(new URL(req.url, 'http://localhost:3000').searchParams.get("count"));
   const time = Date.now();
 
@@ -21,11 +29,11 @@ export default async function api(req: Request, ctx: any) {
     {
       data,
       queryDuration: Date.now() - time,
-      // invocationIsCold: start === time,
-      // invocationRegion: (req.headers.get("x-vercel-id") ?? "").split(":")[1] || null,
+      invocationIsCold: start === time,
+      invocationRegion: (req.headers.get("x-vercel-id") ?? "").split(":")[1] || null,
     },
     {
-      // headers: { "x-edge-is-cold": start === time ? "1" : "0" },
+      headers: { "x-edge-is-cold": start === time ? "1" : "0" },
     }
   );
 }
