@@ -8,11 +8,13 @@ import GithubCorner from "@/components/github-corner";
 const ATTEMPTS = 10;
 
 type Region = "regional" | "global";
+type Runtime = "edge" | "node";
 
 export default function Page() {
   const [isTestRunning, setIsTestRunning] = useState(false);
   const [shouldTestGlobal, setShouldTestGlobal] = useState(true);
   const [shouldTestRegional, setShouldTestRegional] = useState(true);
+  const [runtime, setRuntime] = useState("edge" as Runtime)
   const [queryCount, setQueryCount] = useState(1);
   const [dataService, setDataService] = useState("");
   const [data, setData] = useState({
@@ -24,7 +26,7 @@ export default function Page() {
     console.log(`runTest`, dataService, type, queryCount);
     try {
       const start = Date.now();
-      const res = await fetch(`/api/${dataService}-${type}?count=${queryCount}`);
+      const res = await fetch(`/api/${runtime}/${dataService}-${type}?count=${queryCount}`);
       const data = await res.json();
       const end = Date.now();
       return {
@@ -130,8 +132,6 @@ export default function Page() {
               <SelectItem data-testid="supabase" value="supabase" icon={BoltIcon}>
                 Supabase (supabase-js)
               </SelectItem>
-
-
             </Select>
           </div>
         </div>
@@ -165,6 +165,36 @@ export default function Page() {
             </label>
           </p>
         </div>
+
+        <div className="flex flex-col gap-1">
+          <p className="font-bold">Edge vs Serverless</p>
+          <p className="text-gray-600 dark:text-gray-300 text-sm">
+            Vercel Functions can be executed in different runtimes which can be configured via the <Code className="text-xs">runtime</Code> setting.
+          </p>
+          <p className="text-sm flex gap-3 flex-wrap gap-y-1">
+            <label className="flex items-center gap-2 whitespace-nowrap">
+              <input
+                type="radio"
+                name="edge"
+                value="edge"
+                onChange={() => setRuntime("edge")}
+                checked={runtime === "edge"}
+              />{" "}
+              edge
+            </label>
+            <label className="flex items-center gap-2 whitespace-nowrap">
+              <input
+                type="radio"
+                name="node"
+                value="node"
+                onChange={() => setRuntime("node")}
+                checked={runtime === "node"}
+              />{" "}
+              node
+            </label>
+          </p>
+        </div>
+
 
         <div className="flex flex-col gap-1">
           <p className="font-bold">Waterfall</p>
