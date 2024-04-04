@@ -7,16 +7,18 @@ const start = Date.now();
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log(`url: `, req.url);
 
-  const url = process.env.NODE_ENV !== "production" ? new URL(req.url, "http://localhost:3000") : new URL(req.url);
+  // const url = process.env.NODE_ENV !== "production" ? new URL(req.url, "http://localhost:3000") : new URL(req.url);
+  const { count } = req.query
 
-  const count = toNumber(url.searchParams.get("count"));
+
+  // const count = toNumber(req..);
 
   console.log(`query count: `, count);
 
   const time = Date.now();
 
   let data = null;
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i < toNumber(count); i++) {
     data = await prisma.employees.findMany({ take: 10 });
   }
 
@@ -34,7 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 
 // convert a query parameter to a number, applying a min and max, defaulting to 1
-function toNumber(queryParam: string | null, min = 1, max = 5) {
+function toNumber(queryParam: string | string[] | null, min = 1, max = 5) {
   const num = Number(queryParam);
   return Number.isNaN(num) ? 1 : Math.min(Math.max(num, min), max);
 }

@@ -5,7 +5,7 @@ import { CircleStackIcon, BoltIcon } from "@heroicons/react/16/solid";
 import Head from "next/head";
 import GithubCorner from "@/components/github-corner";
 
-const ATTEMPTS = 1;
+const ATTEMPTS = 3;
 
 type Region = "regional" | "global";
 type Runtime = "edge" | "node";
@@ -50,6 +50,7 @@ export default function Page() {
     setData({ regional: [], global: [] });
 
     for (let i = 0; i < ATTEMPTS; i++) {
+      console.log(`ATTEMPT: `, i)
       let regionalValue = null;
       let globalValue = null;
 
