@@ -8,7 +8,8 @@ export default async function api(req: Request, ctx: any) {
 
   console.log(`url: `, req.url)
 
-  const count = toNumber(new URL(req.url).searchParams.get("count"));
+  const url = process.env.NODE_ENV !== 'production' ? new URL(req.url, 'http://localhost:3000') : new URL(req.url)
+  const count = toNumber(url.searchParams.get("count"));
   const time = Date.now();
 
   let data = null;

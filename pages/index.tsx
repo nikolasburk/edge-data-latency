@@ -5,7 +5,7 @@ import { CircleStackIcon, BoltIcon } from "@heroicons/react/16/solid";
 import Head from "next/head";
 import GithubCorner from "@/components/github-corner";
 
-const ATTEMPTS = 3;
+const ATTEMPTS = 1;
 
 type Region = "regional" | "global";
 type Runtime = "edge" | "node";
