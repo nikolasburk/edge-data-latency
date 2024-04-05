@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "./prisma-results"
+  output   = "./prisma-client"
 }
 
 datasource db {
@@ -33,7 +33,7 @@ model BenchmarkRun {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
 
-  // Benhcmark run params
+  // Benchmark run params
   dataService DataService
   runtime     Runtime
   location    Location

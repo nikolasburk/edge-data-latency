@@ -4,9 +4,9 @@ import { Select, SelectItem } from "@tremor/react";
 import { CircleStackIcon, BoltIcon } from "@heroicons/react/16/solid";
 import Head from "next/head";
 import GithubCorner from "@/components/github-corner";
-import { Location, Runtime, DataService, QueryCount } from "../prisma-results/prisma-results";
+import { Location, Runtime, DataService, QueryCount } from "../prisma-results/prisma-client";
 
-const ATTEMPTS = 3;
+const ATTEMPTS = 1;
 
 type Region = "regional" | "global";
 // type Runtime = "edge" | "node";
@@ -15,7 +15,7 @@ export default function Page() {
   const [isTestRunning, setIsTestRunning] = useState(false);
   const [shouldTestGlobal, setShouldTestGlobal] = useState(true);
   const [shouldTestRegional, setShouldTestRegional] = useState(true);
-  const [runtime, setRuntime] = useState("edge" as Runtime);
+  const [runtime, setRuntime] = useState("Edge" as Runtime);
   const [queryCount, setQueryCount] = useState(1);
   const [dataService, setDataService] = useState("prisma-neon");
   const [data, setData] = useState({
@@ -25,7 +25,8 @@ export default function Page() {
 
   const runTest = useCallback(async (runtime: Runtime, dataService: string, type: Region, queryCount: number) => {
     console.log(`runTest:`, runtime, dataService, type, queryCount);
-    const path = `/api/${runtime}/${dataService}-${type}?count=${queryCount}`;
+    const lowercaseRuntime = (runtime as string).toLowerCase()
+    const path = `/api/${lowercaseRuntime}/${dataService}-${type}?count=${queryCount}`;
     console.log(`path:`, path);
     try {
       const start = Date.now();
@@ -208,8 +209,8 @@ export default function Page() {
                 type="radio"
                 name="edge"
                 value="edge"
-                onChange={() => setRuntime("edge")}
-                checked={runtime === "edge"}
+                onChange={() => setRuntime("Edge")}
+                checked={runtime === "Edge"}
               />{" "}
               edge
             </label>
@@ -218,8 +219,8 @@ export default function Page() {
                 type="radio"
                 name="node"
                 value="node"
-                onChange={() => setRuntime("node")}
-                checked={runtime === "node"}
+                onChange={() => setRuntime("Node")}
+                checked={runtime === "Node"}
               />{" "}
               node
             </label>
@@ -337,11 +338,16 @@ export default function Page() {
 const dataFormatter = (number: number) => `${Intl.NumberFormat("us").format(number).toString()}ms`;
 
 function toDataService(dataService: string): DataService | null {
+  console.log(`convert to data service: `, dataService)
   switch (dataService) {
+    case "neon":
+      return DataService.Neon;
     case "neon-regional":
       return DataService.Neon;
     case "neon-global":
       return DataService.Neon;
+    case "prisma-neon":
+      return DataService.PrismaNeon;
     case "prisma-neon-regional":
       return DataService.PrismaNeon;
     case "prisma-neon-global":

@@ -22,7 +22,7 @@ const {
   defineDmmfProperty,
   Public,
   getRuntime
-} = require('./runtime/edge.js')
+} = require('./runtime/library.js')
 
 
 const Prisma = {}
@@ -76,6 +76,7 @@ Prisma.NullTypes = {
 }
 
 
+  const path = require('path')
 
 /**
  * Enums
@@ -142,7 +143,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/nikolasburk/Desktop/edge-data-latency/prisma-results/prisma-results",
+      "value": "/Users/nikolasburk/Desktop/edge-data-latency/prisma-results/prisma-client",
       "fromEnvVar": null
     },
     "config": {
@@ -176,27 +177,47 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./prisma-results\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"RESULTS_DATABASE_URL\")\n}\n\nenum DataService {\n  Neon\n  PrismaNeon\n}\n\nenum Runtime {\n  Edge\n  Node\n}\n\nenum QueryCount {\n  One\n  Two\n  Five\n}\n\nenum Location {\n  Regional\n  Global\n}\n\nmodel BenchmarkRun {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n\n  // Benhcmark run params\n  dataService DataService\n  runtime     Runtime\n  location    Location\n  queryCount  QueryCount\n\n  // Meta\n  route String\n\n  // Result\n  queryDuration Int\n}\n",
-  "inlineSchemaHash": "a6849c314a70d050bfc3a98d480773f0e1055f772daa9171171a42c05522b111",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./prisma-client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"RESULTS_DATABASE_URL\")\n}\n\nenum DataService {\n  Neon\n  PrismaNeon\n}\n\nenum Runtime {\n  Edge\n  Node\n}\n\nenum QueryCount {\n  One\n  Two\n  Five\n}\n\nenum Location {\n  Regional\n  Global\n}\n\nmodel BenchmarkRun {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n\n  // Benchmark run params\n  dataService DataService\n  runtime     Runtime\n  location    Location\n  queryCount  QueryCount\n\n  // Meta\n  route String\n\n  // Result\n  queryDuration Int\n}\n",
+  "inlineSchemaHash": "050f178376c197b3414f7354fd30300d231e619c075c5c87408b52bc50902be7",
   "copyEngine": true
 }
-config.dirname = '/'
+
+const fs = require('fs')
+
+config.dirname = __dirname
+if (!fs.existsSync(path.join(__dirname, 'schema.prisma'))) {
+  const alternativePaths = [
+    "prisma-results/prisma-client",
+    "prisma-client",
+  ]
+  
+  const alternativePath = alternativePaths.find((altPath) => {
+    return fs.existsSync(path.join(process.cwd(), altPath, 'schema.prisma'))
+  }) ?? alternativePaths[0]
+
+  config.dirname = path.join(process.cwd(), alternativePath)
+  config.isBundled = true
+}
 
 config.runtimeDataModel = JSON.parse("{\"models\":{\"BenchmarkRun\":{\"dbName\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"default\":{\"name\":\"autoincrement\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"dataService\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DataService\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"runtime\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Runtime\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"location\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Location\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"queryCount\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"QueryCount\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"route\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"queryDuration\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Int\",\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false}},\"enums\":{\"DataService\":{\"values\":[{\"name\":\"Neon\",\"dbName\":null},{\"name\":\"PrismaNeon\",\"dbName\":null}],\"dbName\":null},\"Runtime\":{\"values\":[{\"name\":\"Edge\",\"dbName\":null},{\"name\":\"Node\",\"dbName\":null}],\"dbName\":null},\"QueryCount\":{\"values\":[{\"name\":\"One\",\"dbName\":null},{\"name\":\"Two\",\"dbName\":null},{\"name\":\"Five\",\"dbName\":null}],\"dbName\":null},\"Location\":{\"values\":[{\"name\":\"Regional\",\"dbName\":null},{\"name\":\"Global\",\"dbName\":null}],\"dbName\":null}},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = undefined
 
-config.injectableEdgeEnv = () => ({
-  parsed: {
-    RESULTS_DATABASE_URL: typeof globalThis !== 'undefined' && globalThis['RESULTS_DATABASE_URL'] || typeof process !== 'undefined' && process.env && process.env.RESULTS_DATABASE_URL || undefined
-  }
-})
 
-if (typeof globalThis !== 'undefined' && globalThis['DEBUG'] || typeof process !== 'undefined' && process.env && process.env.DEBUG || undefined) {
-  Debug.enable(typeof globalThis !== 'undefined' && globalThis['DEBUG'] || typeof process !== 'undefined' && process.env && process.env.DEBUG || undefined)
-}
+const { warnEnvConflicts } = require('./runtime/library.js')
+
+warnEnvConflicts({
+    rootEnvPath: config.relativeEnvPaths.rootEnvPath && path.resolve(config.dirname, config.relativeEnvPaths.rootEnvPath),
+    schemaEnvPath: config.relativeEnvPaths.schemaEnvPath && path.resolve(config.dirname, config.relativeEnvPaths.schemaEnvPath)
+})
 
 const PrismaClient = getPrismaClient(config)
 exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-darwin.dylib.node");
+path.join(process.cwd(), "prisma-results/prisma-client/libquery_engine-darwin.dylib.node")
+// file annotations for bundling tools to include these files
+path.join(__dirname, "schema.prisma");
+path.join(process.cwd(), "prisma-results/prisma-client/schema.prisma")
