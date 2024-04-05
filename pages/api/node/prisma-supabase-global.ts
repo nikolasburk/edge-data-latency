@@ -10,6 +10,9 @@ const prisma = new PrismaClient({
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log(`url: `, req.url);
 
+  console.log(`process.env.SUPABASE_DATABASE_URL: `, process.env.SUPABASE_DATABASE_URL);
+
+
   const { count } = req.query;
 
   console.log(`query count: `, count);
