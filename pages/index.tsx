@@ -4,11 +4,17 @@ import { Select, SelectItem } from "@tremor/react";
 import { CircleStackIcon, BoltIcon } from "@heroicons/react/16/solid";
 import Head from "next/head";
 import GithubCorner from "@/components/github-corner";
+import { Location, Runtime, DataService, QueryCount } from "../prisma-results/prisma-results";
+
 
 const ATTEMPTS = 3;
 
 type Region = "regional" | "global";
-type Runtime = "edge" | "node";
+// type Runtime = "edge" | "node";
+
+type ResultData = {
+  queryDuration: number
+}
 
 export default function Page() {
   const [isTestRunning, setIsTestRunning] = useState(false);
@@ -31,6 +37,7 @@ export default function Page() {
       const res = await fetch(path);
       const data = await res.json();
       const end = Date.now();
+      console.log(`received data: `, data)
       return {
         ...data,
         elapsed: end - start,
@@ -314,6 +321,41 @@ export default function Page() {
 }
 
 const dataFormatter = (number: number) => `${Intl.NumberFormat("us").format(number).toString()}ms`;
+
+async function writeResults(resultData: ResultData, dataService: DataService, runtime: Runtime, location: Location, queryCount: QueryCount, route: string) {
+  const body = {
+    queryDuration: resultData.queryDuration,
+    dataService,
+    runtime,
+    location,
+    queryCount, 
+    route
+  }
+  console.log(`write data: `, body)
+
+
+  try {
+    const response = await fetch('/api/write-results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const responseData = await response.json();
+    console.log('Response from server:', responseData);
+    // Handle the response from the server as needed
+  } catch (error) {
+    console.error('Error:', error);
+    // Handle errors
+  }
+
+}
 
 function Code({ className = "", children }) {
   return <code className={`bg-gray-200 dark:bg-gray-700 text-sm p-1 rounded ${className}`}>{children}</code>;

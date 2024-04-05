@@ -4,8 +4,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 const start = Date.now();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  
-  
+
+
   const { count } = req.query
   
   const sql = neon(process.env.NEON_DATABASE_URL);
