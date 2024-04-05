@@ -153,6 +153,10 @@ const config = {
         "fromEnvVar": null,
         "value": "darwin",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "rhel-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -168,6 +172,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -176,8 +181,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./prisma-client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"RESULTS_DATABASE_URL\")\n}\n\nenum DataService {\n  Neon\n  PrismaNeon\n}\n\nenum Runtime {\n  Edge\n  Node\n}\n\nenum QueryCount {\n  One\n  Two\n  Five\n}\n\nenum Location {\n  Regional\n  Global\n}\n\nmodel BenchmarkRun {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n\n  // Benchmark run params\n  dataService DataService\n  runtime     Runtime\n  location    Location\n  queryCount  QueryCount\n\n  // Meta\n  route String\n\n  // Result\n  queryDuration Int\n}\n",
-  "inlineSchemaHash": "050f178376c197b3414f7354fd30300d231e619c075c5c87408b52bc50902be7",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"./prisma-client\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"RESULTS_DATABASE_URL\")\n}\n\nenum DataService {\n  Neon\n  PrismaNeon\n}\n\nenum Runtime {\n  Edge\n  Node\n}\n\nenum QueryCount {\n  One\n  Two\n  Five\n}\n\nenum Location {\n  Regional\n  Global\n}\n\nmodel BenchmarkRun {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n\n  // Benchmark run params\n  dataService DataService\n  runtime     Runtime\n  location    Location\n  queryCount  QueryCount\n\n  // Meta\n  route String\n\n  // Result\n  queryDuration Int\n}\n",
+  "inlineSchemaHash": "90576af756e55db996e7ca85f704ddd5cd8967ed6a4835f0e38410e895ffaf1b",
   "copyEngine": true
 }
 config.dirname = '/'
