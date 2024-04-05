@@ -1,31 +1,37 @@
-import { neon } from "@neondatabase/serverless";
+import { PrismaClient } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 const start = Date.now();
 
+const prisma = new PrismaClient({
+  datasourceUrl: process.env.SUPABASE_DATABASE_URL,
+});
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  console.log(`url: `, req.url);
 
+  const { count } = req.query;
 
-  const { count } = req.query
-  
-  const sql = neon(process.env.NEON_DATABASE_URL);
+  console.log(`query count: `, count);
+
+  // await prisma.$connect();
 
   const time = Date.now();
+
   let data = null;
   for (let i = 0; i < toNumber(count); i++) {
-    data = await sql`
-      SELECT "emp_no", "first_name", "last_name" 
-      FROM "employees" 
-      LIMIT 10`;
+    data = await prisma.employees.findMany({ take: 10 });
   }
 
-  return res.status(200).json(
-    {
-      data,
-      queryDuration: Date.now() - time,
-      invocationIsCold: start === time,
-    }
-  );
+  const queryDuration = Date.now() - time;
+
+  // await prisma.$disconnect();
+
+  return res.status(200).json({
+    data,
+    queryDuration,
+    invocationIsCold: start === time,
+  });
 }
 
 // convert a query parameter to a number, applying a min and max, defaulting to 1

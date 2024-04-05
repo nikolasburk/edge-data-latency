@@ -6,7 +6,7 @@ export const config = {
 };
 
 const supabase = createClient<Database>(
-  process.env.SUPABASE_URL,
+  process.env.SUPABASE_DATABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
@@ -19,7 +19,7 @@ export default async function api(req: Request) {
   let data = null;
   for (let i = 0; i < count; i++) {
     const response = await supabase
-      .from("employee_table")
+      .from("employees")
       .select("emp_no,first_name,last_name")
       .limit(10);
     data = response.data;
@@ -53,7 +53,7 @@ function toNumber(queryParam: string | null, min = 1, max = 5) {
 interface Database {
   public: {
     Tables: {
-      employee_table: {
+      employees: {
         Row: {
           emp_no: number;
           first_name: string | null;

@@ -9,15 +9,14 @@ import { Location, Runtime, DataService, QueryCount } from "../prisma-results/pr
 const ATTEMPTS = 1;
 
 type Region = "regional" | "global";
-// type Runtime = "edge" | "node";
 
 export default function Page() {
   const [isTestRunning, setIsTestRunning] = useState(false);
   const [shouldTestGlobal, setShouldTestGlobal] = useState(true);
   const [shouldTestRegional, setShouldTestRegional] = useState(true);
-  const [runtime, setRuntime] = useState("Edge" as Runtime);
+  const [runtime, setRuntime] = useState("Node" as Runtime);
   const [queryCount, setQueryCount] = useState(1);
-  const [dataService, setDataService] = useState("prisma-neon");
+  const [dataService, setDataService] = useState("prisma-supabase");
   const [data, setData] = useState({
     regional: [],
     global: [],
@@ -25,7 +24,7 @@ export default function Page() {
 
   const runTest = useCallback(async (runtime: Runtime, dataService: string, type: Region, queryCount: number) => {
     console.log(`runTest:`, runtime, dataService, type, queryCount);
-    const lowercaseRuntime = (runtime as string).toLowerCase()
+    const lowercaseRuntime = (runtime as string).toLowerCase();
     const path = `/api/${lowercaseRuntime}/${dataService}-${type}?count=${queryCount}`;
     console.log(`path:`, path);
     try {
@@ -146,8 +145,11 @@ export default function Page() {
               data-testid="database-dropdown"
               className="max-w-xs"
               placeholder="Select Database"
-              onValueChange={(v) => setDataService(v)}
-              value="prisma-neon"
+              onValueChange={(v) => {
+                console.log(v);
+                setDataService(v);
+              }}
+              value={dataService}
             >
               <SelectItem data-testid="prisma-neon" value="prisma-neon" icon={null}>
                 Prisma ORM (w/ Neon Serverless)
@@ -155,12 +157,15 @@ export default function Page() {
               <SelectItem data-testid="neon" value="neon" icon={NeonIcon}>
                 Neon (@neondatabase/serverless driver)
               </SelectItem>
-              <SelectItem data-testid="planetscale" value="planetscale" icon={CircleStackIcon}>
-                PlanetScale (Kysely + Serverless SDK)
+              <SelectItem data-testid="prisma-supabase" value="prisma-supabase" icon={null}>
+                Prisma ORM (w/ Supabase (TCP))
               </SelectItem>
               <SelectItem data-testid="supabase" value="supabase" icon={BoltIcon}>
                 Supabase (supabase-js)
               </SelectItem>
+              {/* <SelectItem data-testid="planetscale" value="planetscale" icon={CircleStackIcon}>
+                PlanetScale (Kysely + Serverless SDK)
+              </SelectItem> */}
             </Select>
           </div>
         </div>
@@ -204,16 +209,18 @@ export default function Page() {
             <Code className="text-xs">runtime</Code> setting.
           </p>
           <p className="text-sm flex gap-3 flex-wrap gap-y-1">
-            <label className="flex items-center gap-2 whitespace-nowrap">
-              <input
-                type="radio"
-                name="edge"
-                value="edge"
-                onChange={() => setRuntime("Edge")}
-                checked={runtime === "Edge"}
-              />{" "}
-              edge
-            </label>
+            {dataService !== "prisma-supabase" && (
+              <label className="flex items-center gap-2 whitespace-nowrap">
+                <input
+                  type="radio"
+                  name="edge"
+                  value="edge"
+                  onChange={() => setRuntime("Edge")}
+                  checked={runtime === "Edge"}
+                />{" "}
+                edge
+              </label>
+            )}
             <label className="flex items-center gap-2 whitespace-nowrap">
               <input
                 type="radio"
@@ -338,20 +345,16 @@ export default function Page() {
 const dataFormatter = (number: number) => `${Intl.NumberFormat("us").format(number).toString()}ms`;
 
 function toDataService(dataService: string): DataService | null {
-  console.log(`convert to data service: `, dataService)
+  console.log(`convert to data service: `, dataService);
   switch (dataService) {
     case "neon":
       return DataService.Neon;
-    case "neon-regional":
-      return DataService.Neon;
-    case "neon-global":
-      return DataService.Neon;
     case "prisma-neon":
       return DataService.PrismaNeon;
-    case "prisma-neon-regional":
-      return DataService.PrismaNeon;
-    case "prisma-neon-global":
-      return DataService.PrismaNeon;
+    case "supabase":
+      return DataService.Supabase;
+    case "prisma-supabase":
+      return DataService.PrismaSupabase;
     default:
       return null;
   }

@@ -25,7 +25,9 @@ export type BenchmarkRun = $Result.DefaultSelection<Prisma.$BenchmarkRunPayload>
 export namespace $Enums {
   export const DataService: {
   Neon: 'Neon',
-  PrismaNeon: 'PrismaNeon'
+  PrismaNeon: 'PrismaNeon',
+  Supabase: 'Supabase',
+  PrismaSupabase: 'PrismaSupabase'
 };
 
 export type DataService = (typeof DataService)[keyof typeof DataService]

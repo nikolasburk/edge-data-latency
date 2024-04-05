@@ -141,7 +141,9 @@ exports.Prisma.QueryMode = {
 };
 exports.DataService = exports.$Enums.DataService = {
   Neon: 'Neon',
-  PrismaNeon: 'PrismaNeon'
+  PrismaNeon: 'PrismaNeon',
+  Supabase: 'Supabase',
+  PrismaSupabase: 'PrismaSupabase'
 };
 
 exports.Runtime = exports.$Enums.Runtime = {
