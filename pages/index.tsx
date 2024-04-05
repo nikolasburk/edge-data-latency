@@ -6,21 +6,16 @@ import Head from "next/head";
 import GithubCorner from "@/components/github-corner";
 import { Location, Runtime, DataService, QueryCount } from "../prisma-results/prisma-results";
 
-
 const ATTEMPTS = 3;
 
 type Region = "regional" | "global";
 // type Runtime = "edge" | "node";
 
-type ResultData = {
-  queryDuration: number
-}
-
 export default function Page() {
   const [isTestRunning, setIsTestRunning] = useState(false);
   const [shouldTestGlobal, setShouldTestGlobal] = useState(true);
   const [shouldTestRegional, setShouldTestRegional] = useState(true);
-  const [runtime, setRuntime] = useState("edge" as Runtime)
+  const [runtime, setRuntime] = useState("edge" as Runtime);
   const [queryCount, setQueryCount] = useState(1);
   const [dataService, setDataService] = useState("prisma-neon");
   const [data, setData] = useState({
@@ -30,17 +25,18 @@ export default function Page() {
 
   const runTest = useCallback(async (runtime: Runtime, dataService: string, type: Region, queryCount: number) => {
     console.log(`runTest:`, runtime, dataService, type, queryCount);
-    const path = `/api/${runtime}/${dataService}-${type}?count=${queryCount}`
+    const path = `/api/${runtime}/${dataService}-${type}?count=${queryCount}`;
     console.log(`path:`, path);
     try {
       const start = Date.now();
       const res = await fetch(path);
       const data = await res.json();
       const end = Date.now();
-      console.log(`received data: `, data)
+      console.log(`received data: `, data);
       return {
         ...data,
         elapsed: end - start,
+        path,
       };
     } catch (e) {
       // instead of retrying we just give up
@@ -57,17 +53,34 @@ export default function Page() {
     setData({ regional: [], global: [] });
 
     for (let i = 0; i < ATTEMPTS; i++) {
-      console.log(`ATTEMPT: `, i)
+      console.log(`ATTEMPT: `, i);
       let regionalValue = null;
       let globalValue = null;
 
       if (shouldTestRegional) {
         regionalValue = await runTest(runtime, dataService, "regional", queryCount);
       }
+      writeResults(
+        regionalValue.elapsed,
+        toDataService(dataService),
+        runtime,
+        "Regional",
+        toQueryCount(queryCount),
+        regionalValue.path
+      );
 
       if (shouldTestGlobal) {
         globalValue = await runTest(runtime, dataService, "global", queryCount);
       }
+
+      writeResults(
+        globalValue.elapsed,
+        toDataService(dataService),
+        runtime,
+        "Global",
+        toQueryCount(queryCount),
+        globalValue.path
+      );
 
       setData((data) => {
         return {
@@ -186,7 +199,8 @@ export default function Page() {
         <div className="flex flex-col gap-1">
           <p className="font-bold">Edge vs Serverless</p>
           <p className="text-gray-600 dark:text-gray-300 text-sm">
-            Vercel Functions can be executed in different runtimes which can be configured via the <Code className="text-xs">runtime</Code> setting.
+            Vercel Functions can be executed in different runtimes which can be configured via the{" "}
+            <Code className="text-xs">runtime</Code> setting.
           </p>
           <p className="text-sm flex gap-3 flex-wrap gap-y-1">
             <label className="flex items-center gap-2 whitespace-nowrap">
@@ -322,39 +336,72 @@ export default function Page() {
 
 const dataFormatter = (number: number) => `${Intl.NumberFormat("us").format(number).toString()}ms`;
 
-async function writeResults(resultData: ResultData, dataService: DataService, runtime: Runtime, location: Location, queryCount: QueryCount, route: string) {
+function toDataService(dataService: string): DataService | null {
+  switch (dataService) {
+    case "neon-regional":
+      return DataService.Neon;
+    case "neon-global":
+      return DataService.Neon;
+    case "prisma-neon-regional":
+      return DataService.PrismaNeon;
+    case "prisma-neon-global":
+      return DataService.PrismaNeon;
+    default:
+      return null;
+  }
+}
+
+function toQueryCount(queryCount: number): QueryCount | null {
+  switch (queryCount) {
+    case 1:
+      return QueryCount.One;
+    case 2:
+      return QueryCount.Two;
+    case 5:
+      return QueryCount.Five;
+    default:
+      return null;
+  }
+}
+
+async function writeResults(
+  queryDuration: number,
+  dataService: DataService,
+  runtime: Runtime,
+  location: Location,
+  queryCount: QueryCount,
+  route: string
+) {
   const body = {
-    queryDuration: resultData.queryDuration,
+    queryDuration,
     dataService,
     runtime,
     location,
-    queryCount, 
-    route
-  }
-  console.log(`write data: `, body)
-
+    queryCount,
+    route,
+  };
+  console.log(`write data: `, body);
 
   try {
-    const response = await fetch('/api/write-results', {
-      method: 'POST',
+    const response = await fetch("/api/write-results", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
     });
 
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error("Network response was not ok");
     }
 
     const responseData = await response.json();
-    console.log('Response from server:', responseData);
+    console.log("Response from server:", responseData);
     // Handle the response from the server as needed
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
     // Handle errors
   }
-
 }
 
 function Code({ className = "", children }) {

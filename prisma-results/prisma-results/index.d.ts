@@ -944,31 +944,34 @@ export namespace Prisma {
 
   export type BenchmarkRunMinAggregateOutputType = {
     id: number | null
+    createdAt: Date | null
     dataService: $Enums.DataService | null
     runtime: $Enums.Runtime | null
-    route: string | null
     location: $Enums.Location | null
     queryCount: $Enums.QueryCount | null
+    route: string | null
     queryDuration: number | null
   }
 
   export type BenchmarkRunMaxAggregateOutputType = {
     id: number | null
+    createdAt: Date | null
     dataService: $Enums.DataService | null
     runtime: $Enums.Runtime | null
-    route: string | null
     location: $Enums.Location | null
     queryCount: $Enums.QueryCount | null
+    route: string | null
     queryDuration: number | null
   }
 
   export type BenchmarkRunCountAggregateOutputType = {
     id: number
+    createdAt: number
     dataService: number
     runtime: number
-    route: number
     location: number
     queryCount: number
+    route: number
     queryDuration: number
     _all: number
   }
@@ -986,31 +989,34 @@ export namespace Prisma {
 
   export type BenchmarkRunMinAggregateInputType = {
     id?: true
+    createdAt?: true
     dataService?: true
     runtime?: true
-    route?: true
     location?: true
     queryCount?: true
+    route?: true
     queryDuration?: true
   }
 
   export type BenchmarkRunMaxAggregateInputType = {
     id?: true
+    createdAt?: true
     dataService?: true
     runtime?: true
-    route?: true
     location?: true
     queryCount?: true
+    route?: true
     queryDuration?: true
   }
 
   export type BenchmarkRunCountAggregateInputType = {
     id?: true
+    createdAt?: true
     dataService?: true
     runtime?: true
-    route?: true
     location?: true
     queryCount?: true
+    route?: true
     queryDuration?: true
     _all?: true
   }
@@ -1103,11 +1109,12 @@ export namespace Prisma {
 
   export type BenchmarkRunGroupByOutputType = {
     id: number
+    createdAt: Date
     dataService: $Enums.DataService
     runtime: $Enums.Runtime
-    route: string
     location: $Enums.Location
     queryCount: $Enums.QueryCount
+    route: string
     queryDuration: number
     _count: BenchmarkRunCountAggregateOutputType | null
     _avg: BenchmarkRunAvgAggregateOutputType | null
@@ -1132,21 +1139,23 @@ export namespace Prisma {
 
   export type BenchmarkRunSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    createdAt?: boolean
     dataService?: boolean
     runtime?: boolean
-    route?: boolean
     location?: boolean
     queryCount?: boolean
+    route?: boolean
     queryDuration?: boolean
   }, ExtArgs["result"]["benchmarkRun"]>
 
   export type BenchmarkRunSelectScalar = {
     id?: boolean
+    createdAt?: boolean
     dataService?: boolean
     runtime?: boolean
-    route?: boolean
     location?: boolean
     queryCount?: boolean
+    route?: boolean
     queryDuration?: boolean
   }
 
@@ -1156,11 +1165,12 @@ export namespace Prisma {
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: number
+      createdAt: Date
       dataService: $Enums.DataService
       runtime: $Enums.Runtime
-      route: string
       location: $Enums.Location
       queryCount: $Enums.QueryCount
+      route: string
       queryDuration: number
     }, ExtArgs["result"]["benchmarkRun"]>
     composites: {}
@@ -1557,11 +1567,12 @@ export namespace Prisma {
    */ 
   interface BenchmarkRunFieldRefs {
     readonly id: FieldRef<"BenchmarkRun", 'Int'>
+    readonly createdAt: FieldRef<"BenchmarkRun", 'DateTime'>
     readonly dataService: FieldRef<"BenchmarkRun", 'DataService'>
     readonly runtime: FieldRef<"BenchmarkRun", 'Runtime'>
-    readonly route: FieldRef<"BenchmarkRun", 'String'>
     readonly location: FieldRef<"BenchmarkRun", 'Location'>
     readonly queryCount: FieldRef<"BenchmarkRun", 'QueryCount'>
+    readonly route: FieldRef<"BenchmarkRun", 'String'>
     readonly queryDuration: FieldRef<"BenchmarkRun", 'Int'>
   }
     
@@ -1866,11 +1877,12 @@ export namespace Prisma {
 
   export const BenchmarkRunScalarFieldEnum: {
     id: 'id',
+    createdAt: 'createdAt',
     dataService: 'dataService',
     runtime: 'runtime',
-    route: 'route',
     location: 'location',
     queryCount: 'queryCount',
+    route: 'route',
     queryDuration: 'queryDuration'
   };
 
@@ -1913,6 +1925,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
    * Reference to a field of type 'DataService'
    */
   export type EnumDataServiceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DataService'>
@@ -1937,20 +1963,6 @@ export namespace Prisma {
    * Reference to a field of type 'Runtime[]'
    */
   export type ListEnumRuntimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Runtime[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'String'
-   */
-  export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
-    
-
-
-  /**
-   * Reference to a field of type 'String[]'
-   */
-  export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
     
 
 
@@ -1983,6 +1995,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'String'
+   */
+  export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+    
+
+
+  /**
+   * Reference to a field of type 'String[]'
+   */
+  export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -2004,21 +2030,23 @@ export namespace Prisma {
     OR?: BenchmarkRunWhereInput[]
     NOT?: BenchmarkRunWhereInput | BenchmarkRunWhereInput[]
     id?: IntFilter<"BenchmarkRun"> | number
+    createdAt?: DateTimeFilter<"BenchmarkRun"> | Date | string
     dataService?: EnumDataServiceFilter<"BenchmarkRun"> | $Enums.DataService
     runtime?: EnumRuntimeFilter<"BenchmarkRun"> | $Enums.Runtime
-    route?: StringFilter<"BenchmarkRun"> | string
     location?: EnumLocationFilter<"BenchmarkRun"> | $Enums.Location
     queryCount?: EnumQueryCountFilter<"BenchmarkRun"> | $Enums.QueryCount
+    route?: StringFilter<"BenchmarkRun"> | string
     queryDuration?: IntFilter<"BenchmarkRun"> | number
   }
 
   export type BenchmarkRunOrderByWithRelationInput = {
     id?: SortOrder
+    createdAt?: SortOrder
     dataService?: SortOrder
     runtime?: SortOrder
-    route?: SortOrder
     location?: SortOrder
     queryCount?: SortOrder
+    route?: SortOrder
     queryDuration?: SortOrder
   }
 
@@ -2027,21 +2055,23 @@ export namespace Prisma {
     AND?: BenchmarkRunWhereInput | BenchmarkRunWhereInput[]
     OR?: BenchmarkRunWhereInput[]
     NOT?: BenchmarkRunWhereInput | BenchmarkRunWhereInput[]
+    createdAt?: DateTimeFilter<"BenchmarkRun"> | Date | string
     dataService?: EnumDataServiceFilter<"BenchmarkRun"> | $Enums.DataService
     runtime?: EnumRuntimeFilter<"BenchmarkRun"> | $Enums.Runtime
-    route?: StringFilter<"BenchmarkRun"> | string
     location?: EnumLocationFilter<"BenchmarkRun"> | $Enums.Location
     queryCount?: EnumQueryCountFilter<"BenchmarkRun"> | $Enums.QueryCount
+    route?: StringFilter<"BenchmarkRun"> | string
     queryDuration?: IntFilter<"BenchmarkRun"> | number
   }, "id">
 
   export type BenchmarkRunOrderByWithAggregationInput = {
     id?: SortOrder
+    createdAt?: SortOrder
     dataService?: SortOrder
     runtime?: SortOrder
-    route?: SortOrder
     location?: SortOrder
     queryCount?: SortOrder
+    route?: SortOrder
     queryDuration?: SortOrder
     _count?: BenchmarkRunCountOrderByAggregateInput
     _avg?: BenchmarkRunAvgOrderByAggregateInput
@@ -2055,78 +2085,86 @@ export namespace Prisma {
     OR?: BenchmarkRunScalarWhereWithAggregatesInput[]
     NOT?: BenchmarkRunScalarWhereWithAggregatesInput | BenchmarkRunScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"BenchmarkRun"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"BenchmarkRun"> | Date | string
     dataService?: EnumDataServiceWithAggregatesFilter<"BenchmarkRun"> | $Enums.DataService
     runtime?: EnumRuntimeWithAggregatesFilter<"BenchmarkRun"> | $Enums.Runtime
-    route?: StringWithAggregatesFilter<"BenchmarkRun"> | string
     location?: EnumLocationWithAggregatesFilter<"BenchmarkRun"> | $Enums.Location
     queryCount?: EnumQueryCountWithAggregatesFilter<"BenchmarkRun"> | $Enums.QueryCount
+    route?: StringWithAggregatesFilter<"BenchmarkRun"> | string
     queryDuration?: IntWithAggregatesFilter<"BenchmarkRun"> | number
   }
 
   export type BenchmarkRunCreateInput = {
+    createdAt?: Date | string
     dataService: $Enums.DataService
     runtime: $Enums.Runtime
-    route: string
     location: $Enums.Location
     queryCount: $Enums.QueryCount
+    route: string
     queryDuration: number
   }
 
   export type BenchmarkRunUncheckedCreateInput = {
     id?: number
+    createdAt?: Date | string
     dataService: $Enums.DataService
     runtime: $Enums.Runtime
-    route: string
     location: $Enums.Location
     queryCount: $Enums.QueryCount
+    route: string
     queryDuration: number
   }
 
   export type BenchmarkRunUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dataService?: EnumDataServiceFieldUpdateOperationsInput | $Enums.DataService
     runtime?: EnumRuntimeFieldUpdateOperationsInput | $Enums.Runtime
-    route?: StringFieldUpdateOperationsInput | string
     location?: EnumLocationFieldUpdateOperationsInput | $Enums.Location
     queryCount?: EnumQueryCountFieldUpdateOperationsInput | $Enums.QueryCount
+    route?: StringFieldUpdateOperationsInput | string
     queryDuration?: IntFieldUpdateOperationsInput | number
   }
 
   export type BenchmarkRunUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dataService?: EnumDataServiceFieldUpdateOperationsInput | $Enums.DataService
     runtime?: EnumRuntimeFieldUpdateOperationsInput | $Enums.Runtime
-    route?: StringFieldUpdateOperationsInput | string
     location?: EnumLocationFieldUpdateOperationsInput | $Enums.Location
     queryCount?: EnumQueryCountFieldUpdateOperationsInput | $Enums.QueryCount
+    route?: StringFieldUpdateOperationsInput | string
     queryDuration?: IntFieldUpdateOperationsInput | number
   }
 
   export type BenchmarkRunCreateManyInput = {
     id?: number
+    createdAt?: Date | string
     dataService: $Enums.DataService
     runtime: $Enums.Runtime
-    route: string
     location: $Enums.Location
     queryCount: $Enums.QueryCount
+    route: string
     queryDuration: number
   }
 
   export type BenchmarkRunUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dataService?: EnumDataServiceFieldUpdateOperationsInput | $Enums.DataService
     runtime?: EnumRuntimeFieldUpdateOperationsInput | $Enums.Runtime
-    route?: StringFieldUpdateOperationsInput | string
     location?: EnumLocationFieldUpdateOperationsInput | $Enums.Location
     queryCount?: EnumQueryCountFieldUpdateOperationsInput | $Enums.QueryCount
+    route?: StringFieldUpdateOperationsInput | string
     queryDuration?: IntFieldUpdateOperationsInput | number
   }
 
   export type BenchmarkRunUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dataService?: EnumDataServiceFieldUpdateOperationsInput | $Enums.DataService
     runtime?: EnumRuntimeFieldUpdateOperationsInput | $Enums.Runtime
-    route?: StringFieldUpdateOperationsInput | string
     location?: EnumLocationFieldUpdateOperationsInput | $Enums.Location
     queryCount?: EnumQueryCountFieldUpdateOperationsInput | $Enums.QueryCount
+    route?: StringFieldUpdateOperationsInput | string
     queryDuration?: IntFieldUpdateOperationsInput | number
   }
 
@@ -2141,6 +2179,17 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type EnumDataServiceFilter<$PrismaModel = never> = {
     equals?: $Enums.DataService | EnumDataServiceFieldRefInput<$PrismaModel>
     in?: $Enums.DataService[] | ListEnumDataServiceFieldRefInput<$PrismaModel>
@@ -2153,6 +2202,20 @@ export namespace Prisma {
     in?: $Enums.Runtime[] | ListEnumRuntimeFieldRefInput<$PrismaModel>
     notIn?: $Enums.Runtime[] | ListEnumRuntimeFieldRefInput<$PrismaModel>
     not?: NestedEnumRuntimeFilter<$PrismaModel> | $Enums.Runtime
+  }
+
+  export type EnumLocationFilter<$PrismaModel = never> = {
+    equals?: $Enums.Location | EnumLocationFieldRefInput<$PrismaModel>
+    in?: $Enums.Location[] | ListEnumLocationFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Location[] | ListEnumLocationFieldRefInput<$PrismaModel>
+    not?: NestedEnumLocationFilter<$PrismaModel> | $Enums.Location
+  }
+
+  export type EnumQueryCountFilter<$PrismaModel = never> = {
+    equals?: $Enums.QueryCount | EnumQueryCountFieldRefInput<$PrismaModel>
+    in?: $Enums.QueryCount[] | ListEnumQueryCountFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QueryCount[] | ListEnumQueryCountFieldRefInput<$PrismaModel>
+    not?: NestedEnumQueryCountFilter<$PrismaModel> | $Enums.QueryCount
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -2170,27 +2233,14 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type EnumLocationFilter<$PrismaModel = never> = {
-    equals?: $Enums.Location | EnumLocationFieldRefInput<$PrismaModel>
-    in?: $Enums.Location[] | ListEnumLocationFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Location[] | ListEnumLocationFieldRefInput<$PrismaModel>
-    not?: NestedEnumLocationFilter<$PrismaModel> | $Enums.Location
-  }
-
-  export type EnumQueryCountFilter<$PrismaModel = never> = {
-    equals?: $Enums.QueryCount | EnumQueryCountFieldRefInput<$PrismaModel>
-    in?: $Enums.QueryCount[] | ListEnumQueryCountFieldRefInput<$PrismaModel>
-    notIn?: $Enums.QueryCount[] | ListEnumQueryCountFieldRefInput<$PrismaModel>
-    not?: NestedEnumQueryCountFilter<$PrismaModel> | $Enums.QueryCount
-  }
-
   export type BenchmarkRunCountOrderByAggregateInput = {
     id?: SortOrder
+    createdAt?: SortOrder
     dataService?: SortOrder
     runtime?: SortOrder
-    route?: SortOrder
     location?: SortOrder
     queryCount?: SortOrder
+    route?: SortOrder
     queryDuration?: SortOrder
   }
 
@@ -2201,21 +2251,23 @@ export namespace Prisma {
 
   export type BenchmarkRunMaxOrderByAggregateInput = {
     id?: SortOrder
+    createdAt?: SortOrder
     dataService?: SortOrder
     runtime?: SortOrder
-    route?: SortOrder
     location?: SortOrder
     queryCount?: SortOrder
+    route?: SortOrder
     queryDuration?: SortOrder
   }
 
   export type BenchmarkRunMinOrderByAggregateInput = {
     id?: SortOrder
+    createdAt?: SortOrder
     dataService?: SortOrder
     runtime?: SortOrder
-    route?: SortOrder
     location?: SortOrder
     queryCount?: SortOrder
+    route?: SortOrder
     queryDuration?: SortOrder
   }
 
@@ -2240,6 +2292,20 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type EnumDataServiceWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.DataService | EnumDataServiceFieldRefInput<$PrismaModel>
     in?: $Enums.DataService[] | ListEnumDataServiceFieldRefInput<$PrismaModel>
@@ -2258,24 +2324,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRuntimeFilter<$PrismaModel>
     _max?: NestedEnumRuntimeFilter<$PrismaModel>
-  }
-
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type EnumLocationWithAggregatesFilter<$PrismaModel = never> = {
@@ -2298,6 +2346,28 @@ export namespace Prisma {
     _max?: NestedEnumQueryCountFilter<$PrismaModel>
   }
 
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
   export type EnumDataServiceFieldUpdateOperationsInput = {
     set?: $Enums.DataService
   }
@@ -2306,16 +2376,16 @@ export namespace Prisma {
     set?: $Enums.Runtime
   }
 
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
-  }
-
   export type EnumLocationFieldUpdateOperationsInput = {
     set?: $Enums.Location
   }
 
   export type EnumQueryCountFieldUpdateOperationsInput = {
     set?: $Enums.QueryCount
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -2337,6 +2407,17 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type NestedEnumDataServiceFilter<$PrismaModel = never> = {
     equals?: $Enums.DataService | EnumDataServiceFieldRefInput<$PrismaModel>
     in?: $Enums.DataService[] | ListEnumDataServiceFieldRefInput<$PrismaModel>
@@ -2351,20 +2432,6 @@ export namespace Prisma {
     not?: NestedEnumRuntimeFilter<$PrismaModel> | $Enums.Runtime
   }
 
-  export type NestedStringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringFilter<$PrismaModel> | string
-  }
-
   export type NestedEnumLocationFilter<$PrismaModel = never> = {
     equals?: $Enums.Location | EnumLocationFieldRefInput<$PrismaModel>
     in?: $Enums.Location[] | ListEnumLocationFieldRefInput<$PrismaModel>
@@ -2377,6 +2444,20 @@ export namespace Prisma {
     in?: $Enums.QueryCount[] | ListEnumQueryCountFieldRefInput<$PrismaModel>
     notIn?: $Enums.QueryCount[] | ListEnumQueryCountFieldRefInput<$PrismaModel>
     not?: NestedEnumQueryCountFilter<$PrismaModel> | $Enums.QueryCount
+  }
+
+  export type NestedStringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -2406,6 +2487,20 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type NestedEnumDataServiceWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.DataService | EnumDataServiceFieldRefInput<$PrismaModel>
     in?: $Enums.DataService[] | ListEnumDataServiceFieldRefInput<$PrismaModel>
@@ -2426,23 +2521,6 @@ export namespace Prisma {
     _max?: NestedEnumRuntimeFilter<$PrismaModel>
   }
 
-  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
   export type NestedEnumLocationWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Location | EnumLocationFieldRefInput<$PrismaModel>
     in?: $Enums.Location[] | ListEnumLocationFieldRefInput<$PrismaModel>
@@ -2461,6 +2539,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumQueryCountFilter<$PrismaModel>
     _max?: NestedEnumQueryCountFilter<$PrismaModel>
+  }
+
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
 

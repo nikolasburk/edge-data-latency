@@ -30,9 +30,10 @@ enum Location {
 }
 
 model BenchmarkRun {
-  id Int @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
 
-  // Query params
+  // Benhcmark run params
   dataService DataService
   runtime     Runtime
   location    Location

@@ -121,11 +121,12 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.BenchmarkRunScalarFieldEnum = {
   id: 'id',
+  createdAt: 'createdAt',
   dataService: 'dataService',
   runtime: 'runtime',
-  route: 'route',
   location: 'location',
   queryCount: 'queryCount',
+  route: 'route',
   queryDuration: 'queryDuration'
 };
 
