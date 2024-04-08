@@ -1,8 +1,12 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "../../../prisma-neon/prisma-client";
 import type { NextApiRequest, NextApiResponse } from "next";
 
+// 1. initialize `start` time with Date.now()
 const start = Date.now();
 
+// 2. initialize DB client
+console.log(`process.env.NEON_DATABASE_URL: `, process.env.NEON_DATABASE_URL);
+console.log(`init prisma (w/ neon serverless)`);
 const prisma = new PrismaClient({
   datasourceUrl: process.env.NEON_DATABASE_URL,
 });
@@ -10,17 +14,20 @@ const prisma = new PrismaClient({
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log(`url: `, req.url);
 
+  // 3. retrieve `count` from URL
   const { count } = req.query;
-
   console.log(`query count: `, count);
 
+  // 4. initialize `time` time with Date.now()
   const time = Date.now();
 
+  // 5. run queries `count` times
   let data = null;
   for (let i = 0; i < toNumber(count); i++) {
     data = await prisma.employees.findMany({ take: 10 });
   }
 
+  // 6. return response
   return res.status(200).json({
     data,
     queryDuration: Date.now() - time,

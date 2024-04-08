@@ -1,22 +1,28 @@
 import { createClient } from "@supabase/supabase-js";
 import type { NextApiRequest, NextApiResponse } from "next";
 
+// 1. initialize `start` time with Date.now()
+const start = Date.now();
+
+// 2. initialize DB client
+console.log(`process.env.SUPABASE_DATABASE_URL: `, process.env.SUPABASE_DATABASE_URL);
+console.log(`init supabase js client`);
 const supabase = createClient<Database>(
   process.env.SUPABASE_DATABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-const start = Date.now();
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log(`url: `, req.url);
 
-  const { count } = req.query
-
+  // 3. retrieve `count` from URL
+  const { count } = req.query;
   console.log(`query count: `, count);
 
+  // 4. initialize `time` time with Date.now()
   const time = Date.now();
 
+  // 5. run queries `count` times
   let data = null;
   for (let i = 0; i < toNumber(count); i++) {
     const response = await supabase
@@ -26,6 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     data = response.data;
   }
 
+  // 6. return response
   return res.status(200).json(
     {
       data,
