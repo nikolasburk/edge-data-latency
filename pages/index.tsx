@@ -163,9 +163,12 @@ export default function Page() {
               <SelectItem data-testid="supabase" value="supabase" icon={BoltIcon}>
                 Supabase (supabase-js)
               </SelectItem>
-              {/* <SelectItem data-testid="planetscale" value="planetscale" icon={CircleStackIcon}>
+              <SelectItem data-testid="prisma-planetscale" value="prisma-planetscale" icon={CircleStackIcon}>
+                Prisma ORM (w/ PlanetScale Serverless)
+              </SelectItem> 
+               <SelectItem data-testid="planetscale" value="planetscale" icon={CircleStackIcon}>
                 PlanetScale (Kysely + Serverless SDK)
-              </SelectItem> */}
+              </SelectItem> 
             </Select>
           </div>
         </div>
