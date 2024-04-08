@@ -16,7 +16,7 @@ export default function Page() {
   const [shouldTestRegional, setShouldTestRegional] = useState(true);
   const [runtime, setRuntime] = useState("Edge" as Runtime);
   const [queryCount, setQueryCount] = useState(1);
-  const [dataService, setDataService] = useState();
+  const [dataService, setDataService] = useState(null as DataService);
   const [data, setData] = useState({
     regional: [],
     global: [],
@@ -147,7 +147,7 @@ export default function Page() {
               placeholder="Select Database"
               onValueChange={(v) => {
                 console.log(v);
-                setDataService(v);
+                setDataService(v as DataService);
               }}
               value={dataService}
             >
@@ -213,7 +213,7 @@ export default function Page() {
             <Code className="text-xs">runtime</Code> setting.
           </p>
           <p className="text-sm flex gap-3 flex-wrap gap-y-1">
-            {dataService !== "prisma-supabase" && (
+            {dataService !== DataService.PrismaSupabase && (
               <label className="flex items-center gap-2 whitespace-nowrap">
                 <input
                   type="radio"
@@ -285,7 +285,7 @@ export default function Page() {
             data-testid="run-test"
             onClick={onRunTest}
             loading={isTestRunning}
-            disabled={dataService === ""}
+            disabled={dataService === null}
           >
             Run Test
           </Button>
