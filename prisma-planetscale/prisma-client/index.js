@@ -125,6 +125,10 @@ const config = {
         "fromEnvVar": null,
         "value": "darwin",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "rhel-openssl-3.0.x"
       }
     ],
     "previewFeatures": [
@@ -151,8 +155,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider        = \"prisma-client-js\"\n  previewFeatures = [\"driverAdapters\"]\n  output          = \"./prisma-client\"\n}\n\ndatasource db {\n  provider          = \"mysql\"\n  url               = env(\"PLANETSCALE_DATABASE_URL\")\n  shadowDatabaseUrl = env(\"SHADOW_PLANETSCALE_DATABASE_URL\")\n  relationMode      = \"prisma\"\n}\n\nmodel employees {\n  emp_no     Int    @id @default(autoincrement())\n  first_name String\n  last_name  String\n}\n",
-  "inlineSchemaHash": "69c56706df420eba92d859140bf88f14aff453c9f2c0e69a3002e676e4a80cee",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider        = \"prisma-client-js\"\n  previewFeatures = [\"driverAdapters\"]\n  output          = \"./prisma-client\"\n  binaryTargets   = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider          = \"mysql\"\n  url               = env(\"PLANETSCALE_DATABASE_URL\")\n  shadowDatabaseUrl = env(\"SHADOW_PLANETSCALE_DATABASE_URL\")\n  relationMode      = \"prisma\"\n}\n\nmodel employees {\n  emp_no     Int    @id @default(autoincrement())\n  first_name String\n  last_name  String\n}\n",
+  "inlineSchemaHash": "12fee8ac2b4e016abc9fb1f3e7190b8db30fe4aac6871b638d4f0139000c2a1a",
   "copyEngine": true
 }
 
@@ -192,6 +196,10 @@ Object.assign(exports, Prisma)
 // file annotations for bundling tools to include these files
 path.join(__dirname, "libquery_engine-darwin.dylib.node");
 path.join(process.cwd(), "prisma-planetscale/prisma-client/libquery_engine-darwin.dylib.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-rhel-openssl-3.0.x.so.node");
+path.join(process.cwd(), "prisma-planetscale/prisma-client/libquery_engine-rhel-openssl-3.0.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "prisma-planetscale/prisma-client/schema.prisma")
