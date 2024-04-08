@@ -16,7 +16,7 @@ export default function Page() {
   const [shouldTestRegional, setShouldTestRegional] = useState(true);
   const [runtime, setRuntime] = useState("Edge" as Runtime);
   const [queryCount, setQueryCount] = useState(1);
-  const [dataService, setDataService] = useState("prisma-planetscale");
+  const [dataService, setDataService] = useState();
   const [data, setData] = useState({
     regional: [],
     global: [],
@@ -57,17 +57,17 @@ export default function Page() {
       let regionalValue = null;
       let globalValue = null;
 
-      if (shouldTestRegional) {
-        regionalValue = await runTest(runtime, dataService, "regional", queryCount);
-      }
-      writeResults(
-        regionalValue.elapsed,
-        toDataService(dataService),
-        runtime,
-        "Regional",
-        toQueryCount(queryCount),
-        regionalValue.path
-      );
+      // if (shouldTestRegional) {
+      //   regionalValue = await runTest(runtime, dataService, "regional", queryCount);
+      // }
+      // writeResults(
+      //   regionalValue.elapsed,
+      //   toDataService(dataService),
+      //   runtime,
+      //   "Regional",
+      //   toQueryCount(queryCount),
+      //   regionalValue.path
+      // );
 
       if (shouldTestGlobal) {
         globalValue = await runTest(runtime, dataService, "global", queryCount);
@@ -92,7 +92,7 @@ export default function Page() {
     }
 
     setIsTestRunning(false);
-  }, [runTest, runtime, queryCount, dataService, shouldTestGlobal, shouldTestRegional]);
+  }, [runTest, runtime, queryCount, dataService, shouldTestGlobal]);
 
   return (
     <main className="p-6 max-w-5xl flex flex-col gap-3">
