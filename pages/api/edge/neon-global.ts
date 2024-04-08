@@ -5,17 +5,21 @@ export const config = {
   runtime: "edge",
 };
 
+// 1. initialize `start` time with Date.now()
 const start = Date.now();
 
-export default async function api(req: Request, ctx: any) {
-
-  const url = process.env.NODE_ENV !== 'production' ? new URL(req.url, 'http://localhost:3000') : new URL(req.url)
-
+export default async function api(req: Request) {
+  // 2. retrieve `count` from URL
+  const url = process.env.NODE_ENV !== "production" ? new URL(req.url, "http://localhost:3000") : new URL(req.url);
   const count = toNumber(url.searchParams.get("count"));
+
+  // 3. initialize `time` time with Date.now()
   const time = Date.now();
 
+  // 4. initialize DB client
   const sql = neon(process.env.NEON_DATABASE_URL);
 
+  // 5. run queries `count` times
   let data = null;
   for (let i = 0; i < count; i++) {
     data = await sql`
@@ -24,14 +28,18 @@ export default async function api(req: Request, ctx: any) {
       LIMIT 10`;
   }
 
-  return Response.json({
-    data,
-    queryDuration: Date.now() - time,
-    invocationIsCold: start === time,
-    invocationRegion: (req.headers.get("x-vercel-id") ?? "").split(":")[1] || null,
-  }, {
-    headers: { "x-edge-is-cold": start === time ? "1" : "0" },
-  });
+  // 6. return response
+  return Response.json(
+    {
+      data,
+      queryDuration: Date.now() - time,
+      invocationIsCold: start === time,
+      invocationRegion: (req.headers.get("x-vercel-id") ?? "").split(":")[1] || null,
+    },
+    {
+      headers: { "x-edge-is-cold": start === time ? "1" : "0" },
+    }
+  );
 }
 
 // convert a query parameter to a number, applying a min and max, defaulting to 1

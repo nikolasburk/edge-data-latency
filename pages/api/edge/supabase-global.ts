@@ -5,34 +5,35 @@ export const config = {
   runtime: "edge",
 };
 
-const supabase = createClient<Database>(
-  process.env.SUPABASE_DATABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
-
+// 1. initialize `start` time with Date.now()
 const start = Date.now();
 
 export default async function api(req: Request) {
+  // 2. retrieve `count` from URL
+  const url = process.env.NODE_ENV !== "production" ? new URL(req.url, "http://localhost:3000") : new URL(req.url);
   const count = toNumber(new URL(req.url).searchParams.get("count"));
+
+  // 3. initialize `time` time with Date.now()
   const time = Date.now();
 
+  // 4. initialize DB client
+  const supabase = createClient<Database>(process.env.SUPABASE_DATABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+
+  // 5. run queries `count` times
   let data = null;
   for (let i = 0; i < count; i++) {
-    const response = await supabase
-      .from("employees")
-      .select("emp_no,first_name,last_name")
-      .limit(10);
+    const response = await supabase.from("employees").select("emp_no,first_name,last_name").limit(10);
     data = response.data;
     console.log(data);
   }
 
+  // 6. return response
   return Response.json(
     {
       data,
       queryDuration: Date.now() - time,
       invocationIsCold: start === time,
-      invocationRegion:
-        (req.headers.get("x-vercel-id") ?? "").split(":")[1] || null,
+      invocationRegion: (req.headers.get("x-vercel-id") ?? "").split(":")[1] || null,
     },
     {
       headers: {
