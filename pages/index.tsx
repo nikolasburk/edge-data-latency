@@ -351,6 +351,10 @@ function toDataService(dataService: string): DataService | null {
       return DataService.Neon;
     case "prisma-neon":
       return DataService.PrismaNeon;
+    case "planetscale":
+      return DataService.PlanetScale;
+    case "prisma-planetscale":
+      return DataService.PrismaPlanetScale;
     case "supabase":
       return DataService.Supabase;
     case "prisma-supabase":

@@ -1,0 +1,42 @@
+import { PrismaClient } from "../../../prisma-planetscale/prisma-client";
+import { NextRequest as Request, NextResponse as Response } from "next/server";
+
+const start = Date.now();
+
+console.log(`process.env.PLANETSCALE_DATABASE_URL: `, process.env.PLANETSCALE_DATABASE_URL);
+console.log(`init prisma`);
+
+const prisma = new PrismaClient({
+  datasourceUrl: process.env.PLANETSCALE_DATABASE_URL,
+});
+
+export default async function api(req: Request) {
+  const count = toNumber(new URL(req.url).searchParams.get("count"));
+
+  console.log(`url: `, req.url);
+
+  const time = Date.now();
+
+  let data = null;
+  for (let i = 0; i < count; i++) {
+    data = await prisma.employees.findMany({ take: 10 });
+  }
+
+  return Response.json(
+    {
+      data,
+      queryDuration: Date.now() - time,
+      invocationIsCold: start === time,
+      // invocationRegion: (req.headers.get("x-vercel-id") ?? "").split(":")[1] || null,
+    },
+    {
+      headers: { "x-edge-is-cold": start === time ? "1" : "0" },
+    }
+  );
+}
+
+// convert a query parameter to a number, applying a min and max, defaulting to 1
+function toNumber(queryParam: string | string[] | null, min = 1, max = 5) {
+  const num = Number(queryParam);
+  return Number.isNaN(num) ? 1 : Math.min(Math.max(num, min), max);
+}

@@ -14,9 +14,7 @@ interface Database {
 
 const db = new Kysely<Database>({
   dialect: new PlanetScaleDialect({
-    host: process.env.DATABASE_HOST,
-    username: process.env.DATABASE_USERNAME,
-    password: process.env.DATABASE_PASSWORD,
+    url: process.env.PLANETSCALE_DATABASE_URL,
   }),
 });
 
@@ -28,11 +26,7 @@ export default async function api(req: Request) {
 
   let data = null;
   for (let i = 0; i < count; i++) {
-    data = await db
-      .selectFrom("employees")
-      .select(["emp_no", "first_name", "last_name"])
-      .limit(10)
-      .execute();
+    data = await db.selectFrom("employees").select(["emp_no", "first_name", "last_name"]).limit(10).execute();
   }
 
   return Response.json(
@@ -40,8 +34,7 @@ export default async function api(req: Request) {
       data,
       queryDuration: Date.now() - time,
       invocationIsCold: start === time,
-      invocationRegion:
-        (req.headers.get("x-vercel-id") ?? "").split(":")[1] || null,
+      invocationRegion: (req.headers.get("x-vercel-id") ?? "").split(":")[1] || null,
     },
     {
       headers: {
