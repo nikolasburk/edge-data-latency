@@ -14,9 +14,9 @@ export default function Page() {
   const [isTestRunning, setIsTestRunning] = useState(false);
   const [shouldTestGlobal, setShouldTestGlobal] = useState(true);
   const [shouldTestRegional, setShouldTestRegional] = useState(true);
-  const [runtime, setRuntime] = useState("Node" as Runtime);
+  const [runtime, setRuntime] = useState("Edge" as Runtime);
   const [queryCount, setQueryCount] = useState(1);
-  const [dataService, setDataService] = useState("prisma-supabase");
+  const [dataService, setDataService] = useState("prisma-planetscale");
   const [data, setData] = useState({
     regional: [],
     global: [],
@@ -157,18 +157,19 @@ export default function Page() {
               <SelectItem data-testid="neon" value="neon" icon={NeonIcon}>
                 Neon (@neondatabase/serverless driver)
               </SelectItem>
+              <SelectItem data-testid="prisma-planetscale" value="prisma-planetscale" icon={null}>
+                Prisma ORM (w/ PlanetScale Serverless)
+              </SelectItem> 
+               <SelectItem data-testid="planetscale" value="planetscale" icon={CircleStackIcon}>
+                PlanetScale (Kysely + Serverless SDK)
+              </SelectItem> 
               <SelectItem data-testid="prisma-supabase" value="prisma-supabase" icon={null}>
                 Prisma ORM (w/ Supabase (TCP))
               </SelectItem>
               <SelectItem data-testid="supabase" value="supabase" icon={BoltIcon}>
                 Supabase (supabase-js)
               </SelectItem>
-              <SelectItem data-testid="prisma-planetscale" value="prisma-planetscale" icon={CircleStackIcon}>
-                Prisma ORM (w/ PlanetScale Serverless)
-              </SelectItem> 
-               <SelectItem data-testid="planetscale" value="planetscale" icon={CircleStackIcon}>
-                PlanetScale (Kysely + Serverless SDK)
-              </SelectItem> 
+
             </Select>
           </div>
         </div>

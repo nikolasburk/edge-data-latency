@@ -29,6 +29,9 @@ dependencies:
   '@prisma/adapter-neon':
     specifier: ^5.12.0
     version: 5.12.0(@neondatabase/serverless@0.9.0)
+  '@prisma/adapter-planetscale':
+    specifier: ^5.12.1
+    version: 5.12.1(@planetscale/database@1.16.0)
   '@prisma/client':
     specifier: 5.12.0
     version: 5.12.0(prisma@5.12.0)
@@ -752,6 +755,15 @@ packages:
       postgres-array: 3.0.2
     dev: false
 
+  /@prisma/adapter-planetscale@5.12.1(@planetscale/database@1.16.0):
+    resolution: {integrity: sha512-TeE4CUJY+ITn5Xo2tefaaKQUh7+mVaHLBEdjQlyGXZonnOgblyoVTAMRgiNwMiCZBeL/YQYc1XDlnTgG72WuSA==}
+    peerDependencies:
+      '@planetscale/database': ^1.15.0
+    dependencies:
+      '@planetscale/database': 1.16.0
+      '@prisma/driver-adapter-utils': 5.12.1
+    dev: false
+
   /@prisma/client@5.12.0(prisma@5.12.0):
     resolution: {integrity: sha512-bk/+KPpRm0+IzqFCtAxrj+/TNiHzulspnO+OkysaYY/atc/eX0Gx8V3tTLxbHKVX0LKD4Hi8KKCcSbU1U72n7Q==}
     engines: {node: '>=16.13'}
@@ -769,10 +781,20 @@ packages:
     resolution: {integrity: sha512-wK3fQLxPLMqf5riT5ZIhl8NffPSzFUwtzFX5CH7z/oI9Swmo9UhQlUgZABIVgdXSJ5OAlmRcDZtDKaMApIl8sg==}
     dev: false
 
+  /@prisma/debug@5.12.1:
+    resolution: {integrity: sha512-kd/wNsR0klrv79o1ITsbWxYyh4QWuBidvxsXSParPsYSu0ircUmNk3q4ojsgNc3/81b0ozg76iastOG43tbf8A==}
+    dev: false
+
   /@prisma/driver-adapter-utils@5.12.0:
     resolution: {integrity: sha512-B57KUrKmRlax4sE4pc2VKPtG5U9XGm5kjtqSWBUd83NopIZVuvKunH3ETrOShwBCqWZXZolHvdDjDwHyiT2HRQ==}
     dependencies:
       '@prisma/debug': 5.12.0
+    dev: false
+
+  /@prisma/driver-adapter-utils@5.12.1:
+    resolution: {integrity: sha512-s5EHANHIyWID/3WLNYn3wy1SUGC2OFH2thYriq+sKo4GZxEduX9oraOVlPruZZBt/roN9ojZcph4R2oecWzfXg==}
+    dependencies:
+      '@prisma/debug': 5.12.1
     dev: false
 
   /@prisma/engines-version@5.12.0-21.473ed3124229e22d881cb7addf559799debae1ab:
