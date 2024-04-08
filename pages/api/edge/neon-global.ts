@@ -9,6 +9,8 @@ export const config = {
 const start = Date.now();
 
 export default async function api(req: Request) {
+  console.log(`url: `, req.url);
+
   // 2. retrieve `count` from URL
   const url = process.env.NODE_ENV !== "production" ? new URL(req.url, "http://localhost:3000") : new URL(req.url);
   const count = toNumber(url.searchParams.get("count"));
