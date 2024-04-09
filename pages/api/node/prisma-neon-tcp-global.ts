@@ -6,10 +6,10 @@ import { PrismaClient } from "../../../prisma-neon/prisma-client";
 const start = Date.now();
 
 // 2. initialize DB client
-console.log(`process.env.NEON_TCP_DATABASE_URL: `, process.env.NEON_TCP_DATABASE_URL);
+console.log(`process.env.NEON_DATABASE_URL: `, process.env.NEON_DATABASE_URL);
 console.log(`init prisma (w/ neon tcp)`);
 const prisma = new PrismaClient({
-  datasourceUrl: process.env.NEON_TCP_DATABASE_URL,
+  datasourceUrl: process.env.NEON_DATABASE_URL,
 });
 
 
