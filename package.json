@@ -5,7 +5,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "gen:neon": "prisma generate --schema ./prisma-neon/schema.prisma",
+    "gen:planetscale": "prisma generate --schema ./prisma-planetscale/schema.prisma",
+    "gen:supabase": "prisma generate --schema ./prisma-supabase/schema.prisma"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.18",
