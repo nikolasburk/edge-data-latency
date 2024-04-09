@@ -6,7 +6,7 @@ import Head from "next/head";
 import GithubCorner from "@/components/github-corner";
 import { Location, Runtime, DataService, QueryCount } from "../prisma-results/prisma-client";
 
-const ATTEMPTS = 1;
+const ATTEMPTS = 10;
 
 type Region = "regional" | "global";
 
@@ -85,23 +85,28 @@ export default function Page() {
     for (let dataService of edgeServices) {
       for (let queryCount of testConfig.queryCount) {
         console.log(`run test (Edge): `, dataService, queryCount);
+        for (let i = 0; i < ATTEMPTS; i++) {
+          console.log(`ATTEMPT: `, i);
 
-        const globalValue = await runTest("Edge", dataService, "global", queryCount);
+          setIsTestRunning(true);
+          const globalValue = await runTest("Edge", dataService, "global", queryCount);
 
-        if (globalValue === null || globalValue.data.length !== 10) {
-          console.log(`Data query wasn't successful.`);
+          if (globalValue === null || globalValue.data.length !== 10) {
+            console.log(`Data query wasn't successful.`);
+            setIsTestRunning(false);
+            return null;
+          }
+
+          writeResults(
+            globalValue.elapsed,
+            toDataService(dataService),
+            runtime,
+            "Global",
+            toQueryCount(queryCount),
+            globalValue.path
+          );
           setIsTestRunning(false);
-          return null;
         }
-
-        writeResults(
-          globalValue.elapsed,
-          toDataService(dataService),
-          runtime,
-          "Global",
-          toQueryCount(queryCount),
-          globalValue.path
-        );
       }
     }
     const nodeServices = testConfig.dataService.node;
@@ -109,22 +114,29 @@ export default function Page() {
       for (let queryCount of testConfig.queryCount) {
         console.log(`run test (Node): `, dataService, queryCount);
 
-        const globalValue = await runTest("Node", dataService, "global", queryCount);
+        for (let i = 0; i < ATTEMPTS; i++) {
+          console.log(`ATTEMPT: `, i);
 
-        if (globalValue === null || globalValue.data.length !== 10) {
-          console.log(`Data query wasn't successful.`);
+          setIsTestRunning(true);
+          const globalValue = await runTest("Node", dataService, "global", queryCount);
+
+          if (globalValue === null || globalValue.data.length !== 10) {
+            console.log(`Data query wasn't successful.`);
+            setIsTestRunning(false);
+            return null;
+          }
+
+          writeResults(
+            globalValue.elapsed,
+            toDataService(dataService),
+            runtime,
+            "Global",
+            toQueryCount(queryCount),
+            globalValue.path
+          );
           setIsTestRunning(false);
-          return null;
-        }
 
-        writeResults(
-          globalValue.elapsed,
-          toDataService(dataService),
-          runtime,
-          "Global",
-          toQueryCount(queryCount),
-          globalValue.path
-        );
+        }
       }
     }
   }, [runTest, runtime]);
@@ -392,7 +404,7 @@ export default function Page() {
             type="button"
             data-testid="run-all-tests"
             onClick={runAllTests}
-            // loading={isTestRunning}
+            loading={isTestRunning}
             // disabled={dataService === null}
           >
             Run All Tests
