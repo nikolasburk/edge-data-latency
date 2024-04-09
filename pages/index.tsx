@@ -75,7 +75,8 @@ export default function Page() {
       // if (shouldTestGlobal) {
       globalValue = await runTest(runtime, dataService, "global", queryCount);
 
-      if (globalValue === null) {
+      if (globalValue === null || globalValue.data.length !== 10) {
+        console.log(`Data query wasn't successful.`)
         return null;
       }
 
