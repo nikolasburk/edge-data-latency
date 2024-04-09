@@ -1,15 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "../../../prisma-planetscale/prisma-client";
+import { PrismaPlanetScale } from "@prisma/adapter-planetscale";
+import { Client } from "@planetscale/database";
 
 // 1. initialize `start` time with Date.now()
 const start = Date.now();
 
 // 2. initialize DB client
 console.log(`process.env.PLANETSCALE_DATABASE_URL: `, process.env.PLANETSCALE_DATABASE_URL);
-console.log(`init prisma w/ planetscale serverless`);
-const prisma = new PrismaClient({
-  datasourceUrl: process.env.PLANETSCALE_DATABASE_URL,
-});
+console.log(`init prisma`);
+const client = new Client({ url: process.env.PLANETSCALE_DATABASE_URL });
+const adapter = new PrismaPlanetScale(client);
+const prisma = new PrismaClient({ adapter });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log(`url: `, req.url);

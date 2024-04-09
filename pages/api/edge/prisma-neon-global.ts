@@ -21,7 +21,7 @@ export default async function api(req: Request) {
   const time = Date.now();
 
   // 4. initialize DB client
-  console.log(`process.env.PLANETSCALE_DATABASE_URL: `, process.env.PLANETSCALE_DATABASE_URL);
+  console.log(`process.env.NEON_DATABASE_URL: `, process.env.NEON_DATABASE_URL);
   console.log(`init prisma`);
   const neon = new Pool({ connectionString: process.env.NEON_DATABASE_URL });
   const adapter = new PrismaNeon(neon);

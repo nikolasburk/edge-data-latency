@@ -1,5 +1,6 @@
-import { PrismaClient } from "../../../prisma-supabase/prisma-client";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { PrismaClient } from "../../../prisma-supabase/prisma-client";
+
 
 // 1. initialize `start` time with Date.now()
 const start = Date.now();

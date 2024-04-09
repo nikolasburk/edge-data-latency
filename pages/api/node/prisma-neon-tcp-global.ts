@@ -1,8 +1,18 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import prismaNeonTCP from "../../../prisma-neon/prisma";
+// import prismaNeonTCP from "../../../prisma-neon/prisma";
+import { PrismaClient } from "../../../prisma-neon/prisma-client";
+
 
 // 1. initialize `start` time with Date.now()
 const start = Date.now();
+
+// 2. initialize DB client
+console.log(`process.env.NEON_TCP_DATABASE_URL: `, process.env.NEON_TCP_DATABASE_URL);
+console.log(`init prisma (w/ neon tcp)`);
+const prisma = new PrismaClient({
+  datasourceUrl: process.env.NEON_TCP_DATABASE_URL,
+});
+
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log(`url: `, req.url);
@@ -17,7 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // 5. run queries `count` times
   let data = null;
   for (let i = 0; i < toNumber(count); i++) {
-    data = await prismaNeonTCP.employees.findMany({ take: 10 })
+    data = await prisma.employees.findMany({ take: 10 })
   }
 
   // 6. return response

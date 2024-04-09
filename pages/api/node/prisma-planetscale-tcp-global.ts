@@ -1,17 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from "../../../prisma-neon/prisma-client";
-import { PrismaNeon } from "@prisma/adapter-neon";
-import { Pool } from "@neondatabase/serverless";
+import { PrismaClient } from "../../../prisma-planetscale/prisma-client";
 
 // 1. initialize `start` time with Date.now()
 const start = Date.now();
 
 // 2. initialize DB client
-console.log(`process.env.NEON_DATABASE_URL: `, process.env.NEON_DATABASE_URL);
+console.log(`process.env.PLANETSCALE_DATABASE_URL: `, process.env.PLANETSCALE_DATABASE_URL);
 console.log(`init prisma`);
-const neon = new Pool({ connectionString: process.env.NEON_DATABASE_URL });
-const adapter = new PrismaNeon(neon);
-const prisma = new PrismaClient({ adapter });
+const prisma = new PrismaClient({
+  datasourceUrl: process.env.PLANETSCALE_DATABASE_URL,
+});
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log(`url: `, req.url);

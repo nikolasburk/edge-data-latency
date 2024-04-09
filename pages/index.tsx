@@ -45,6 +45,92 @@ export default function Page() {
     }
   }, []);
 
+  const runAllTests = useCallback(async () => {
+    const testConfig = {
+      dataService: {
+        edge: [
+          // neon
+          "prisma-neon",
+          "neon",
+
+          // planetscale
+          "prisma-planetscale",
+          "planetscale",
+
+          // supabase
+          "supabase",
+        ],
+        node: [
+          // neon
+          "prisma-neon",
+          "prisma-neon-tcp",
+          "neon",
+
+          // planetscale
+          "prisma-planetscale",
+          "planetscale",
+
+          // supabase
+          "prisma-supabase",
+          "supabase",
+        ],
+      },
+      queryCount: [1, 2, 5],
+    };
+
+    console.log(`runAllTests:`, testConfig);
+
+    const edgeServices = testConfig.dataService.edge;
+    for (let dataService of edgeServices) {
+      for (let queryCount of testConfig.queryCount) {
+        console.log(`run test (Edge): `, dataService, queryCount);
+
+        const globalValue = await runTest("Edge", dataService, "global", queryCount);
+
+        if (globalValue === null || globalValue.data.length !== 10) {
+          console.log(`Data query wasn't successful.`);
+          setIsTestRunning(false);
+          return null;
+        }
+  
+        writeResults(
+          globalValue.elapsed,
+          toDataService(dataService),
+          runtime,
+          "Global",
+          toQueryCount(queryCount),
+          globalValue.path
+        );
+
+    
+      }
+    }
+    const nodeServices = testConfig.dataService.node;
+    for (let dataService of nodeServices) {
+      for (let queryCount of testConfig.queryCount) {
+        console.log(`run test (Node): `, dataService, queryCount);
+
+        const globalValue = await runTest("Node", dataService, "global", queryCount);
+
+        if (globalValue === null || globalValue.data.length !== 10) {
+          console.log(`Data query wasn't successful.`);
+          setIsTestRunning(false);
+          return null;
+        }
+  
+        writeResults(
+          globalValue.elapsed,
+          toDataService(dataService),
+          runtime,
+          "Global",
+          toQueryCount(queryCount),
+          globalValue.path
+        );
+
+      }
+    }
+  }, [runTest, runtime]);
+
   const onRunTest = useCallback(async () => {
     console.log(`Run Test button clicked`);
     console.log(`dataService: `, dataService);
@@ -300,6 +386,17 @@ export default function Page() {
           </Button>
         </div>
 
+        <div>
+          <Button
+            type="button"
+            data-testid="run-all-tests"
+            onClick={runAllTests}
+            // loading={isTestRunning}
+            // disabled={dataService === null}
+          >
+            Run All Tests
+          </Button>
+        </div>
         {data.regional.length || data.global.length ? (
           <Grid className="gap-5" numItems={1} numItemsMd={2}>
             <Card>
