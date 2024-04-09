@@ -155,6 +155,9 @@ export default function Page() {
               <SelectItem data-testid="prisma-neon" value="prisma-neon" icon={null}>
                 Prisma ORM (w/ Neon Serverless)
               </SelectItem>
+              <SelectItem data-testid="prisma-neon-tcp" value="neon" icon={null}>
+                Prisma ORM (w/ Neon TCP )
+              </SelectItem>
               <SelectItem data-testid="neon" value="neon" icon={NeonIcon}>
                 Neon (@neondatabase/serverless driver)
               </SelectItem>
@@ -355,6 +358,8 @@ function toDataService(dataService: string): DataService | null {
       return DataService.Neon;
     case "prisma-neon":
       return DataService.PrismaNeon;
+    case "prisma-neon-tcp":
+      return DataService.PrismaNeonTCP;
     case "planetscale":
       return DataService.PlanetScale;
     case "prisma-planetscale":

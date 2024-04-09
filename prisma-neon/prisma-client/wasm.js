@@ -154,13 +154,13 @@ const config = {
   "inlineDatasources": {
     "db": {
       "url": {
-        "fromEnvVar": "NEON_DATABASE_URL",
+        "fromEnvVar": "NEON_TCP_DATABASE_URL",
         "value": null
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider        = \"prisma-client-js\"\n  previewFeatures = [\"driverAdapters\"]\n  output          = \"./prisma-client\"\n  binaryTargets   = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"NEON_DATABASE_URL\")\n}\n\nmodel employees {\n  emp_no     Int    @id @default(autoincrement())\n  first_name String\n  last_name  String\n}\n",
-  "inlineSchemaHash": "c7e0cf4818cd8bcce07499b31301fcce56df2bdd6e62fc6c16f5744e6c2b115a",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider        = \"prisma-client-js\"\n  previewFeatures = [\"driverAdapters\"]\n  output          = \"./prisma-client\"\n  binaryTargets   = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"NEON_TCP_DATABASE_URL\")\n}\n\nmodel employees {\n  emp_no     Int    @id @default(autoincrement())\n  first_name String\n  last_name  String\n}\n",
+  "inlineSchemaHash": "e8b089f075ba10669595158d5e4da63635fe1162d5ff6ec590701cd060dcb78d",
   "copyEngine": true
 }
 config.dirname = '/'
@@ -176,7 +176,7 @@ config.engineWasm = {
 
 config.injectableEdgeEnv = () => ({
   parsed: {
-    NEON_DATABASE_URL: typeof globalThis !== 'undefined' && globalThis['NEON_DATABASE_URL'] || typeof process !== 'undefined' && process.env && process.env.NEON_DATABASE_URL || undefined
+    NEON_TCP_DATABASE_URL: typeof globalThis !== 'undefined' && globalThis['NEON_TCP_DATABASE_URL'] || typeof process !== 'undefined' && process.env && process.env.NEON_TCP_DATABASE_URL || undefined
   }
 })
 

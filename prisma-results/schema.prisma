@@ -12,6 +12,7 @@ datasource db {
 enum DataService {
   Neon
   PrismaNeon
+  PrismaNeonTCP
   Supabase
   PrismaSupabase
   PlanetScale

@@ -142,6 +142,7 @@ exports.Prisma.QueryMode = {
 exports.DataService = exports.$Enums.DataService = {
   Neon: 'Neon',
   PrismaNeon: 'PrismaNeon',
+  PrismaNeonTCP: 'PrismaNeonTCP',
   Supabase: 'Supabase',
   PrismaSupabase: 'PrismaSupabase',
   PlanetScale: 'PlanetScale',

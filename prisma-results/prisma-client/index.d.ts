@@ -26,6 +26,7 @@ export namespace $Enums {
   export const DataService: {
   Neon: 'Neon',
   PrismaNeon: 'PrismaNeon',
+  PrismaNeonTCP: 'PrismaNeonTCP',
   Supabase: 'Supabase',
   PrismaSupabase: 'PrismaSupabase',
   PlanetScale: 'PlanetScale',
