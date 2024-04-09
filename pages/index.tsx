@@ -6,14 +6,14 @@ import Head from "next/head";
 import GithubCorner from "@/components/github-corner";
 import { Location, Runtime, DataService, QueryCount } from "../prisma-results/prisma-client";
 
-const ATTEMPTS = 1;
+const ATTEMPTS = 10;
 
 type Region = "regional" | "global";
 
 export default function Page() {
   const [isTestRunning, setIsTestRunning] = useState(false);
-  const [shouldTestGlobal, setShouldTestGlobal] = useState(true);
-  const [shouldTestRegional, setShouldTestRegional] = useState(true);
+  // const [shouldTestGlobal, setShouldTestGlobal] = useState(true);
+  // const [shouldTestRegional, setShouldTestRegional] = useState(true);
   const [runtime, setRuntime] = useState("Edge" as Runtime);
   const [queryCount, setQueryCount] = useState(1);
   const [dataService, setDataService] = useState(undefined as DataService);
@@ -72,22 +72,22 @@ export default function Page() {
       //   );
       // }
 
-      if (shouldTestGlobal) {
-        globalValue = await runTest(runtime, dataService, "global", queryCount);
+      // if (shouldTestGlobal) {
+      globalValue = await runTest(runtime, dataService, "global", queryCount);
 
-        if (globalValue === null) {
-          return null;
-        }
-
-        writeResults(
-          globalValue.elapsed,
-          toDataService(dataService),
-          runtime,
-          "Global",
-          toQueryCount(queryCount),
-          globalValue.path
-        );
+      if (globalValue === null) {
+        return null;
       }
+
+      writeResults(
+        globalValue.elapsed,
+        toDataService(dataService),
+        runtime,
+        "Global",
+        toQueryCount(queryCount),
+        globalValue.path
+      );
+      // }
 
       setData((data) => {
         return {
@@ -99,7 +99,7 @@ export default function Page() {
     }
 
     setIsTestRunning(false);
-  }, [runTest, runtime, queryCount, dataService, shouldTestGlobal]);
+  }, [runTest, runtime, queryCount, dataService]);
 
   return (
     <main className="p-6 max-w-5xl flex flex-col gap-3">
