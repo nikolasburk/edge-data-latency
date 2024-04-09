@@ -20,7 +20,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const time = Date.now();
 
   // 5. run queries `count` times
-  console.log(`run queries: `, supabase)
   let data = null;
   for (let i = 0; i < toNumber(count); i++) {
     const response = await supabase.from("employees").select("emp_no,first_name,last_name").limit(10);
