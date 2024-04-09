@@ -16,7 +16,7 @@ export default function Page() {
   const [shouldTestRegional, setShouldTestRegional] = useState(true);
   const [runtime, setRuntime] = useState("Edge" as Runtime);
   const [queryCount, setQueryCount] = useState(1);
-  const [dataService, setDataService] = useState(null as DataService);
+  const [dataService, setDataService] = useState(undefined as DataService);
   const [data, setData] = useState({
     regional: [],
     global: [],
@@ -155,7 +155,7 @@ export default function Page() {
               <SelectItem data-testid="prisma-neon" value="prisma-neon" icon={null}>
                 Prisma ORM (w/ Neon Serverless)
               </SelectItem>
-              <SelectItem data-testid="prisma-neon-tcp" value="neon" icon={null}>
+              <SelectItem data-testid="prisma-neon-tcp" value="prisma-neon-tcp" icon={null}>
                 Prisma ORM (w/ Neon TCP )
               </SelectItem>
               <SelectItem data-testid="neon" value="neon" icon={NeonIcon}>
