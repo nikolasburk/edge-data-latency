@@ -57,18 +57,18 @@ export default function Page() {
       let regionalValue = null;
       let globalValue = null;
 
-      if (shouldTestRegional && runtime === "Edge") {
-        regionalValue = await runTest(runtime, dataService, "regional", queryCount);
+      // if (shouldTestRegional && runtime === "Edge") {
+      //   regionalValue = await runTest(runtime, dataService, "regional", queryCount);
 
-        writeResults(
-          regionalValue.elapsed,
-          toDataService(dataService),
-          runtime,
-          "Regional",
-          toQueryCount(queryCount),
-          regionalValue.path
-        );
-      }
+      //   writeResults(
+      //     regionalValue.elapsed,
+      //     toDataService(dataService),
+      //     runtime,
+      //     "Regional",
+      //     toQueryCount(queryCount),
+      //     regionalValue.path
+      //   );
+      // }
 
       if (shouldTestGlobal) {
         globalValue = await runTest(runtime, dataService, "global", queryCount);
@@ -93,7 +93,7 @@ export default function Page() {
     }
 
     setIsTestRunning(false);
-  }, [runTest, runtime, queryCount, dataService, shouldTestRegional, shouldTestGlobal]);
+  }, [runTest, runtime, queryCount, dataService, shouldTestGlobal]);
 
   return (
     <main className="p-6 max-w-5xl flex flex-col gap-3">
@@ -168,7 +168,7 @@ export default function Page() {
                 PlanetScale (Kysely + Serverless SDK)
               </SelectItem>
               <SelectItem data-testid="prisma-supabase" value="prisma-supabase" icon={null}>
-                Prisma ORM (w/ Supabase (TCP))
+                Prisma ORM (w/ Supabase TCP)
               </SelectItem>
               <SelectItem data-testid="supabase" value="supabase" icon={BoltIcon}>
                 Supabase (supabase-js)
@@ -178,7 +178,7 @@ export default function Page() {
         </div>
 
         {/* Location */}
-        <div className="flex flex-col gap-1">
+        {/* <div className="flex flex-col gap-1">
           <p className="font-bold">Location</p>
           <p className="text-gray-600 dark:text-gray-300 text-sm">
             Vercel Edge Functions support multiple regions. By default they&apos;re global, but it&apos;s possible to
@@ -206,7 +206,7 @@ export default function Page() {
               Test regional (US East) function
             </label>
           </p>
-        </div>
+        </div> */}
 
         {/* Edge vs Serverless */}
         <div className="flex flex-col gap-1">
@@ -216,7 +216,7 @@ export default function Page() {
             <Code className="text-xs">runtime</Code> setting.
           </p>
           <p className="text-sm flex gap-3 flex-wrap gap-y-1">
-            {dataService !== DataService.PrismaSupabase && (
+            {dataService === "PrismaSupabase" as DataService ? null : (
               <label className="flex items-center gap-2 whitespace-nowrap">
                 <input
                   type="radio"
