@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-// import prismaNeonTCP from "../../../prisma-neon/prisma";
 import { PrismaClient } from "../../../prisma-neon/prisma-client";
 
 
