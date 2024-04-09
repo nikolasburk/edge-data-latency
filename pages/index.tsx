@@ -68,10 +68,11 @@ export default function Page() {
 
           // planetscale
           "prisma-planetscale",
+          "prisma-planetscale-tcp",
           "planetscale",
 
           // supabase
-          "prisma-supabase",
+          "prisma-supabase-tcp",
           "supabase",
         ],
       },
@@ -92,7 +93,7 @@ export default function Page() {
           setIsTestRunning(false);
           return null;
         }
-  
+
         writeResults(
           globalValue.elapsed,
           toDataService(dataService),
@@ -101,8 +102,6 @@ export default function Page() {
           toQueryCount(queryCount),
           globalValue.path
         );
-
-    
       }
     }
     const nodeServices = testConfig.dataService.node;
@@ -117,7 +116,7 @@ export default function Page() {
           setIsTestRunning(false);
           return null;
         }
-  
+
         writeResults(
           globalValue.elapsed,
           toDataService(dataService),
@@ -126,7 +125,6 @@ export default function Page() {
           toQueryCount(queryCount),
           globalValue.path
         );
-
       }
     }
   }, [runTest, runtime]);
@@ -257,6 +255,9 @@ export default function Page() {
               </SelectItem>
               <SelectItem data-testid="prisma-planetscale" value="prisma-planetscale" icon={null}>
                 Prisma ORM (w/ PlanetScale Serverless)
+              </SelectItem>
+              <SelectItem data-testid="prisma-planetscale-tcp" value="prisma-planetscale-tcp" icon={null}>
+                Prisma ORM (w/ PlanetScale TCP)
               </SelectItem>
               <SelectItem data-testid="planetscale" value="planetscale" icon={CircleStackIcon}>
                 PlanetScale (Kysely + Serverless SDK)
@@ -467,10 +468,12 @@ function toDataService(dataService: string): DataService | null {
       return DataService.PlanetScale;
     case "prisma-planetscale":
       return DataService.PrismaPlanetScale;
+    case "prisma-planetscale-tcp":
+      return DataService.PrismaPlanetScaleTCP;
     case "supabase":
       return DataService.Supabase;
-    case "prisma-supabase":
-      return DataService.PrismaSupabase;
+    case "prisma-supabase-tcp":
+      return DataService.PrismaSupabaseTCP;
     default:
       return null;
   }
