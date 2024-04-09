@@ -24,6 +24,7 @@ export default function Page() {
 
   const runTest = useCallback(async (runtime: Runtime, dataService: string, type: Region, queryCount: number) => {
     console.log(`runTest:`, runtime, dataService, type, queryCount);
+
     const lowercaseRuntime = (runtime as string).toLowerCase();
     const path = `/api/${lowercaseRuntime}/${dataService}-${type}?count=${queryCount}`;
     console.log(`path:`, path);
@@ -46,6 +47,7 @@ export default function Page() {
 
   const onRunTest = useCallback(async () => {
     console.log(`Run Test button clicked`);
+    console.log(`dataService: `, dataService);
     console.log(`runtime: `, runtime);
     console.log(`queries: `, queryCount);
 
@@ -54,7 +56,7 @@ export default function Page() {
 
     for (let i = 0; i < ATTEMPTS; i++) {
       console.log(`ATTEMPT: `, i);
-      let regionalValue = null;
+      // let regionalValue = null;
       let globalValue = null;
 
       // if (shouldTestRegional && runtime === "Edge") {
@@ -73,6 +75,10 @@ export default function Page() {
       if (shouldTestGlobal) {
         globalValue = await runTest(runtime, dataService, "global", queryCount);
 
+        if (globalValue === null) {
+          return null;
+        }
+
         writeResults(
           globalValue.elapsed,
           toDataService(dataService),
@@ -86,7 +92,7 @@ export default function Page() {
       setData((data) => {
         return {
           ...data,
-          regional: [...data.regional, regionalValue],
+          // regional: [...data.regional, regionalValue],
           global: [...data.global, globalValue],
         };
       });
@@ -216,7 +222,7 @@ export default function Page() {
             <Code className="text-xs">runtime</Code> setting.
           </p>
           <p className="text-sm flex gap-3 flex-wrap gap-y-1">
-            {dataService === "PrismaSupabase" as DataService ? null : (
+            {dataService !== toDataService("PrismaSupabase") && (
               <label className="flex items-center gap-2 whitespace-nowrap">
                 <input
                   type="radio"
