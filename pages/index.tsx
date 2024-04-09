@@ -76,7 +76,7 @@ export default function Page() {
       globalValue = await runTest(runtime, dataService, "global", queryCount);
 
       if (globalValue === null || globalValue.data.length !== 10) {
-        console.log(`Data query wasn't successful.`)
+        console.log(`Data query wasn't successful.`);
         setIsTestRunning(false);
         return null;
       }
@@ -224,18 +224,16 @@ export default function Page() {
             <Code className="text-xs">runtime</Code> setting.
           </p>
           <p className="text-sm flex gap-3 flex-wrap gap-y-1">
-            {dataService !== toDataService("PrismaSupabase") && (
-              <label className="flex items-center gap-2 whitespace-nowrap">
-                <input
-                  type="radio"
-                  name="edge"
-                  value="edge"
-                  onChange={() => setRuntime("Edge")}
-                  checked={runtime === "Edge"}
-                />{" "}
-                edge
-              </label>
-            )}
+            <label className="flex items-center gap-2 whitespace-nowrap">
+              <input
+                type="radio"
+                name="edge"
+                value="edge"
+                onChange={() => setRuntime("Edge")}
+                checked={runtime === "Edge"}
+              />{" "}
+              edge
+            </label>
             <label className="flex items-center gap-2 whitespace-nowrap">
               <input
                 type="radio"
