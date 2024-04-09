@@ -77,6 +77,7 @@ export default function Page() {
 
       if (globalValue === null || globalValue.data.length !== 10) {
         console.log(`Data query wasn't successful.`)
+        setIsTestRunning(false);
         return null;
       }
 
