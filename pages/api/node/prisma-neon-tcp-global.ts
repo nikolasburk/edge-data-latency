@@ -17,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // 5. run queries `count` times
   let data = null;
   for (let i = 0; i < toNumber(count); i++) {
-    data = await prismaNeonTCP.employees.findMany()
+    data = await prismaNeonTCP.employees.findMany({ take: 10 })
   }
 
   // 6. return response
