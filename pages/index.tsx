@@ -57,30 +57,31 @@ export default function Page() {
       let regionalValue = null;
       let globalValue = null;
 
-      // if (shouldTestRegional) {
-      //   regionalValue = await runTest(runtime, dataService, "regional", queryCount);
-      // }
-      // writeResults(
-      //   regionalValue.elapsed,
-      //   toDataService(dataService),
-      //   runtime,
-      //   "Regional",
-      //   toQueryCount(queryCount),
-      //   regionalValue.path
-      // );
+      if (shouldTestRegional && runtime === "Edge") {
+        regionalValue = await runTest(runtime, dataService, "regional", queryCount);
+
+        writeResults(
+          regionalValue.elapsed,
+          toDataService(dataService),
+          runtime,
+          "Regional",
+          toQueryCount(queryCount),
+          regionalValue.path
+        );
+      }
 
       if (shouldTestGlobal) {
         globalValue = await runTest(runtime, dataService, "global", queryCount);
-      }
 
-      writeResults(
-        globalValue.elapsed,
-        toDataService(dataService),
-        runtime,
-        "Global",
-        toQueryCount(queryCount),
-        globalValue.path
-      );
+        writeResults(
+          globalValue.elapsed,
+          toDataService(dataService),
+          runtime,
+          "Global",
+          toQueryCount(queryCount),
+          globalValue.path
+        );
+      }
 
       setData((data) => {
         return {
@@ -92,7 +93,7 @@ export default function Page() {
     }
 
     setIsTestRunning(false);
-  }, [runTest, runtime, queryCount, dataService, shouldTestGlobal]);
+  }, [runTest, runtime, queryCount, dataService, shouldTestRegional, shouldTestGlobal]);
 
   return (
     <main className="p-6 max-w-5xl flex flex-col gap-3">
@@ -159,17 +160,16 @@ export default function Page() {
               </SelectItem>
               <SelectItem data-testid="prisma-planetscale" value="prisma-planetscale" icon={null}>
                 Prisma ORM (w/ PlanetScale Serverless)
-              </SelectItem> 
-               <SelectItem data-testid="planetscale" value="planetscale" icon={CircleStackIcon}>
+              </SelectItem>
+              <SelectItem data-testid="planetscale" value="planetscale" icon={CircleStackIcon}>
                 PlanetScale (Kysely + Serverless SDK)
-              </SelectItem> 
+              </SelectItem>
               <SelectItem data-testid="prisma-supabase" value="prisma-supabase" icon={null}>
                 Prisma ORM (w/ Supabase (TCP))
               </SelectItem>
               <SelectItem data-testid="supabase" value="supabase" icon={BoltIcon}>
                 Supabase (supabase-js)
               </SelectItem>
-
             </Select>
           </div>
         </div>
@@ -397,7 +397,7 @@ async function writeResults(
     queryCount,
     route,
   };
-  console.log(`write data: `, body);
+  console.log(`write results: `, body);
 
   try {
     const response = await fetch("/api/write-results", {
@@ -409,11 +409,11 @@ async function writeResults(
     });
 
     if (!response.ok) {
-      throw new Error("Network response was not ok");
+      throw new Error(`Network response was not ok: ${response}`);
     }
 
-    const responseData = await response.json();
-    console.log("Response from server:", responseData);
+    // const responseData = await response.json();
+    // console.log("Response from server:", responseData);
     // Handle the response from the server as needed
   } catch (error) {
     console.error("Error:", error);
