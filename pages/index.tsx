@@ -265,7 +265,7 @@ export default function Page() {
                 Drizzle (w/ Neon Serverless)
               </SelectItem>
               <SelectItem data-testid="drizzle-neon-tcp" value="drizzle-neon-tcp" icon={null}>
-                Drizzle (w/ Neon TCP)
+                Drizzle (w/ Neon TCP using `pg` driver)
               </SelectItem>
               <SelectItem data-testid="neon" value="neon" icon={NeonIcon}>
                 Neon (@neondatabase/serverless driver)
@@ -275,6 +275,12 @@ export default function Page() {
               </SelectItem>
               <SelectItem data-testid="prisma-planetscale-tcp" value="prisma-planetscale-tcp" icon={null}>
                 Prisma ORM (w/ PlanetScale TCP)
+              </SelectItem>
+              <SelectItem data-testid="drizzle-planetscale" value="drizzle-planetscale" icon={null}>
+                Drizzle (w/ PlanetScale Serverless)
+              </SelectItem>
+              <SelectItem data-testid="drizzle-planetscale-tcp" value="drizzle-planetscale-tcp" icon={null}>
+                Drizzle (w/ PlanetScale TCP using `mysql2` driver)
               </SelectItem>
               <SelectItem data-testid="planetscale" value="planetscale" icon={CircleStackIcon}>
                 PlanetScale (Kysely + Serverless SDK)
@@ -491,6 +497,10 @@ function toDataService(dataService: string): DataService | null {
       return DataService.PrismaPlanetScale;
     case "prisma-planetscale-tcp":
       return DataService.PrismaPlanetScaleTCP;
+    case "drizzle-planetscale":
+      return DataService.DrizzlePlanetScale;
+    case "drizzle-planetscale-tcp":
+      return DataService.DrizzlePlanetScaleTCP;
     case "supabase":
       return DataService.Supabase;
     case "prisma-supabase-tcp":

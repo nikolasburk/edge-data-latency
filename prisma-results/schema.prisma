@@ -20,6 +20,8 @@ enum DataService {
   PlanetScale
   PrismaPlanetScale
   PrismaPlanetScaleTCP
+  DrizzlePlanetScale
+  DrizzlePlanetScaleTCP
 }
 
 enum Runtime {

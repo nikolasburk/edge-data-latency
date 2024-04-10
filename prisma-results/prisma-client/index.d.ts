@@ -33,7 +33,9 @@ export namespace $Enums {
   PrismaSupabaseTCP: 'PrismaSupabaseTCP',
   PlanetScale: 'PlanetScale',
   PrismaPlanetScale: 'PrismaPlanetScale',
-  PrismaPlanetScaleTCP: 'PrismaPlanetScaleTCP'
+  PrismaPlanetScaleTCP: 'PrismaPlanetScaleTCP',
+  DrizzlePlanetScale: 'DrizzlePlanetScale',
+  DrizzlePlanetScaleTCP: 'DrizzlePlanetScaleTCP'
 };
 
 export type DataService = (typeof DataService)[keyof typeof DataService]

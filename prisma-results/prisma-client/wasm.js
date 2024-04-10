@@ -149,7 +149,9 @@ exports.DataService = exports.$Enums.DataService = {
   PrismaSupabaseTCP: 'PrismaSupabaseTCP',
   PlanetScale: 'PlanetScale',
   PrismaPlanetScale: 'PrismaPlanetScale',
-  PrismaPlanetScaleTCP: 'PrismaPlanetScaleTCP'
+  PrismaPlanetScaleTCP: 'PrismaPlanetScaleTCP',
+  DrizzlePlanetScale: 'DrizzlePlanetScale',
+  DrizzlePlanetScaleTCP: 'DrizzlePlanetScaleTCP'
 };
 
 exports.Runtime = exports.$Enums.Runtime = {
