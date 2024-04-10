@@ -51,10 +51,12 @@ export default function Page() {
         edge: [
           // neon
           "prisma-neon",
+          "drizzle-neon",
           "neon",
 
           // planetscale
           "prisma-planetscale",
+          "drizzle-planetscale",
           "planetscale",
 
           // supabase
@@ -64,6 +66,7 @@ export default function Page() {
           // neon
           "prisma-neon",
           "prisma-neon-tcp",
+          "drizzle-neon",
           "neon",
 
           // planetscale

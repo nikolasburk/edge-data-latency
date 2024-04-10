@@ -13,7 +13,6 @@ export const employees = mysqlTable("employees", {
   last_name: varchar("last_name", { length: 256 }),
 });
 
-
 // 1. initialize `start` time with Date.now()
 const start = Date.now();
 
