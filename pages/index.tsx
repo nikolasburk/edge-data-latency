@@ -73,6 +73,7 @@ export default function Page() {
           // planetscale
           "prisma-planetscale",
           "prisma-planetscale-tcp",
+          "drizzle-planetscale",
           "drizzle-planetscale-tcp",
           "planetscale",
 
