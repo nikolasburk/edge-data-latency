@@ -67,6 +67,7 @@ export default function Page() {
           "prisma-neon",
           "prisma-neon-tcp",
           "drizzle-neon",
+          "drizzle-neon-tcp",
           "neon",
 
           // planetscale
