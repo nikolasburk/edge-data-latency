@@ -15,13 +15,14 @@ enum DataService {
   PrismaNeonTCP
   DrizzleNeon
   DrizzleNeonTCP
-  Supabase
-  PrismaSupabaseTCP
   PlanetScale
   PrismaPlanetScale
   PrismaPlanetScaleTCP
   DrizzlePlanetScale
   DrizzlePlanetScaleTCP
+  Supabase
+  PrismaSupabaseTCP
+  DrizzleSupabaseTCP
 }
 
 enum Runtime {

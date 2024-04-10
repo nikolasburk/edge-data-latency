@@ -73,7 +73,7 @@ dependencies:
     version: 1.10.0(react-dom@18.2.0)(react@18.2.0)
   drizzle-orm:
     specifier: ^0.30.7
-    version: 0.30.7(@libsql/client@0.5.6)(@neondatabase/serverless@0.9.0)(@planetscale/database@1.16.0)(@types/pg@8.11.5)(@types/react@18.2.65)(@vercel/postgres@0.7.2)(@xata.io/client@0.29.3)(kysely@0.27.3)(mysql2@3.9.4)(pg@8.11.5)(react@18.2.0)
+    version: 0.30.7(@libsql/client@0.5.6)(@neondatabase/serverless@0.9.0)(@planetscale/database@1.16.0)(@types/pg@8.11.5)(@types/react@18.2.65)(@vercel/postgres@0.7.2)(@xata.io/client@0.29.3)(kysely@0.27.3)(mysql2@3.9.4)(pg@8.11.5)(postgres@3.4.4)(react@18.2.0)
   eslint:
     specifier: 8.57.0
     version: 8.57.0
@@ -98,6 +98,9 @@ dependencies:
   postcss:
     specifier: ^8.4.35
     version: 8.4.35
+  postgres:
+    specifier: ^3.4.4
+    version: 3.4.4
   prisma:
     specifier: ^5.12.0
     version: 5.12.0
@@ -2287,7 +2290,7 @@ packages:
       - supports-color
     dev: true
 
-  /drizzle-orm@0.30.7(@libsql/client@0.5.6)(@neondatabase/serverless@0.9.0)(@planetscale/database@1.16.0)(@types/pg@8.11.5)(@types/react@18.2.65)(@vercel/postgres@0.7.2)(@xata.io/client@0.29.3)(kysely@0.27.3)(mysql2@3.9.4)(pg@8.11.5)(react@18.2.0):
+  /drizzle-orm@0.30.7(@libsql/client@0.5.6)(@neondatabase/serverless@0.9.0)(@planetscale/database@1.16.0)(@types/pg@8.11.5)(@types/react@18.2.65)(@vercel/postgres@0.7.2)(@xata.io/client@0.29.3)(kysely@0.27.3)(mysql2@3.9.4)(pg@8.11.5)(postgres@3.4.4)(react@18.2.0):
     resolution: {integrity: sha512-9qefSZQlu2fO2qv24piHyWFWcxcOY15//0v4j8qomMqaxzipNoG+fUBrQ7Ftk7PY7APRbRdn/nkEXWxiI4a8mw==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
@@ -2377,6 +2380,7 @@ packages:
       kysely: 0.27.3
       mysql2: 3.9.4
       pg: 8.11.5
+      postgres: 3.4.4
       react: 18.2.0
     dev: false
 
@@ -4312,6 +4316,11 @@ packages:
 
   /postgres-range@1.1.4:
     resolution: {integrity: sha512-i/hbxIE9803Alj/6ytL7UHQxRvZkI9O4Sy+J3HGc4F4oo/2eQAjTSNJ0bfxyse3bH0nuVesCk+3IRLaMtG3H6w==}
+
+  /postgres@3.4.4:
+    resolution: {integrity: sha512-IbyN+9KslkqcXa8AO9fxpk97PA4pzewvpi2B3Dwy9u4zpV32QicaEdgmF3eSQUzdRk7ttDHQejNgAEr4XoeH4A==}
+    engines: {node: '>=12'}
+    dev: false
 
   /prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}

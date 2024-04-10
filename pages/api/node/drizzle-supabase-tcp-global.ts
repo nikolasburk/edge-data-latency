@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { drizzle } from "drizzle-orm/postgres-js";
-import postgres from "postgres";
+import { drizzle } from 'drizzle-orm/postgres-js'
+import postgres from 'postgres'
 import { pgTable, serial, varchar } from "drizzle-orm/pg-core";
+
 
 export const employees = pgTable("employees", {
   id: serial("emp_no").primaryKey(),
@@ -13,9 +14,9 @@ export const employees = pgTable("employees", {
 const start = Date.now();
 
 // 2. initialize DB client
-console.log(`process.env.NEON_DATABASE_URL: `, process.env.NEON_DATABASE_URL);
-console.log(`init drizzle`);
-const client = postgres(process.env.SUPABASE_DATABASE_URL);
+console.log(`process.env.SUPABASE_DATABASE_URL: `, process.env.SUPABASE_DATABASE_URL);
+console.log(`init drizzle w/ supabase`);
+const client = postgres(process.env.SUPABASE_DATABASE_URL)
 const db = drizzle(client);
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
