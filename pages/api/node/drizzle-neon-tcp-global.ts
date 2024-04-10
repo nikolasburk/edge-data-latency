@@ -12,17 +12,16 @@ export const employees = pgTable("employees", {
 // 1. initialize `start` time with Date.now()
 const start = Date.now();
 
-// 2. initialize DB client
-console.log(`process.env.NEON_DATABASE_URL: `, process.env.NEON_DATABASE_URL);
-console.log(`init drizzle`);
-const client = new Client({
-  connectionString: process.env.NEON_DATABASE_URL,
-});
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log(`url: `, req.url);
 
-  await client.connect();
+  // 2. initialize DB client
+  console.log(`process.env.NEON_DATABASE_URL: `, process.env.NEON_DATABASE_URL);
+  console.log(`init drizzle`);
+  const client = new Client({
+    connectionString: process.env.NEON_DATABASE_URL,
+  });
+  // await client.connect();
   const db = drizzle(client);
 
   // 3. retrieve `count` from URL
@@ -35,6 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // 5. run queries `count` times
   let data = null;
   for (let i = 0; i < toNumber(count); i++) {
+    console.log(`query no: `, i);
     data = await db.select().from(employees).limit(10);
   }
 
