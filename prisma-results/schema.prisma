@@ -13,6 +13,7 @@ enum DataService {
   Neon
   PrismaNeon
   PrismaNeonTCP
+  DrizzleNeon
   Supabase
   PrismaSupabaseTCP
   PlanetScale

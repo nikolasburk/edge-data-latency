@@ -100,7 +100,7 @@ export default function Page() {
           writeResults(
             globalValue.elapsed,
             toDataService(dataService),
-            runtime,
+            "Edge",
             "Global",
             toQueryCount(queryCount),
             globalValue.path
@@ -129,7 +129,7 @@ export default function Page() {
           writeResults(
             globalValue.elapsed,
             toDataService(dataService),
-            runtime,
+            "Node",
             "Global",
             toQueryCount(queryCount),
             globalValue.path
@@ -139,7 +139,7 @@ export default function Page() {
         }
       }
     }
-  }, [runTest, runtime]);
+  }, [runTest]);
 
   const onRunTest = useCallback(async () => {
     console.log(`Run Test button clicked`);
@@ -261,6 +261,9 @@ export default function Page() {
               </SelectItem>
               <SelectItem data-testid="prisma-neon-tcp" value="prisma-neon-tcp" icon={null}>
                 Prisma ORM (w/ Neon TCP )
+              </SelectItem>
+              <SelectItem data-testid="drizzle-neon" value="drizzle-neon" icon={null}>
+                Drizzle ORM (w/ Neon Serverless)
               </SelectItem>
               <SelectItem data-testid="neon" value="neon" icon={NeonIcon}>
                 Neon (@neondatabase/serverless driver)
@@ -476,6 +479,8 @@ function toDataService(dataService: string): DataService | null {
       return DataService.PrismaNeon;
     case "prisma-neon-tcp":
       return DataService.PrismaNeonTCP;
+      case "drizzle-neon":
+        return DataService.DrizzleNeon;
     case "planetscale":
       return DataService.PlanetScale;
     case "prisma-planetscale":

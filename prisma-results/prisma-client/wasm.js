@@ -143,6 +143,7 @@ exports.DataService = exports.$Enums.DataService = {
   Neon: 'Neon',
   PrismaNeon: 'PrismaNeon',
   PrismaNeonTCP: 'PrismaNeonTCP',
+  DrizzleNeon: 'DrizzleNeon',
   Supabase: 'Supabase',
   PrismaSupabaseTCP: 'PrismaSupabaseTCP',
   PlanetScale: 'PlanetScale',

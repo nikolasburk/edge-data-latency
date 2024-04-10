@@ -27,6 +27,7 @@ export namespace $Enums {
   Neon: 'Neon',
   PrismaNeon: 'PrismaNeon',
   PrismaNeonTCP: 'PrismaNeonTCP',
+  DrizzleNeon: 'DrizzleNeon',
   Supabase: 'Supabase',
   PrismaSupabaseTCP: 'PrismaSupabaseTCP',
   PlanetScale: 'PlanetScale',
