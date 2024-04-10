@@ -135,7 +135,6 @@ export default function Page() {
             globalValue.path
           );
           setIsTestRunning(false);
-
         }
       }
     }
@@ -263,7 +262,10 @@ export default function Page() {
                 Prisma ORM (w/ Neon TCP )
               </SelectItem>
               <SelectItem data-testid="drizzle-neon" value="drizzle-neon" icon={null}>
-                Drizzle ORM (w/ Neon Serverless)
+                Drizzle (w/ Neon Serverless)
+              </SelectItem>
+              <SelectItem data-testid="drizzle-neon-tcp" value="drizzle-neon-tcp" icon={null}>
+                Drizzle (w/ Neon TCP)
               </SelectItem>
               <SelectItem data-testid="neon" value="neon" icon={NeonIcon}>
                 Neon (@neondatabase/serverless driver)
@@ -471,7 +473,7 @@ export default function Page() {
 const dataFormatter = (number: number) => `${Intl.NumberFormat("us").format(number).toString()}ms`;
 
 function toDataService(dataService: string): DataService | null {
-  console.log(`convert to data service: `, dataService);
+  // console.log(`convert to data service: `, dataService);
   switch (dataService) {
     case "neon":
       return DataService.Neon;
@@ -479,8 +481,10 @@ function toDataService(dataService: string): DataService | null {
       return DataService.PrismaNeon;
     case "prisma-neon-tcp":
       return DataService.PrismaNeonTCP;
-      case "drizzle-neon":
-        return DataService.DrizzleNeon;
+    case "drizzle-neon":
+      return DataService.DrizzleNeon;
+    case "drizzle-neon-tcp":
+      return DataService.DrizzleNeonTCP;
     case "planetscale":
       return DataService.PlanetScale;
     case "prisma-planetscale":
