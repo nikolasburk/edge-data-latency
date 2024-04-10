@@ -6,7 +6,7 @@ import Head from "next/head";
 import GithubCorner from "@/components/github-corner";
 import { Location, Runtime, DataService, QueryCount } from "../prisma-results/prisma-client";
 
-const ATTEMPTS = 10;
+const ATTEMPTS = 2;
 
 type Region = "regional" | "global";
 
@@ -29,14 +29,11 @@ export default function Page() {
     const path = `/api/${lowercaseRuntime}/${dataService}-${type}?count=${queryCount}`;
     console.log(`path:`, path);
     try {
-      const start = Date.now();
       const res = await fetch(path);
       const data = await res.json();
-      const end = Date.now();
       console.log(`received data: `, data);
       return {
         ...data,
-        elapsed: end - start,
         path,
       };
     } catch (e) {
@@ -105,7 +102,7 @@ export default function Page() {
           }
 
           writeResults(
-            globalValue.elapsed,
+            globalValue.queryDuration,
             toDataService(dataService),
             "Edge",
             "Global",
@@ -134,7 +131,7 @@ export default function Page() {
           }
 
           writeResults(
-            globalValue.elapsed,
+            globalValue.queryDuration,
             toDataService(dataService),
             "Node",
             "Global",
@@ -165,7 +162,7 @@ export default function Page() {
       //   regionalValue = await runTest(runtime, dataService, "regional", queryCount);
 
       //   writeResults(
-      //     regionalValue.elapsed,
+      //     regionalValue.queryDuration,
       //     toDataService(dataService),
       //     runtime,
       //     "Regional",
@@ -176,6 +173,7 @@ export default function Page() {
 
       // if (shouldTestGlobal) {
       globalValue = await runTest(runtime, dataService, "global", queryCount);
+      console.log(`globalValue`, globalValue)
 
       if (globalValue === null || globalValue.data.length !== 10) {
         console.log(`Data query wasn't successful.`);
@@ -184,7 +182,7 @@ export default function Page() {
       }
 
       writeResults(
-        globalValue.elapsed,
+        globalValue.queryDuration,
         toDataService(dataService),
         runtime,
         "Global",
@@ -447,29 +445,6 @@ export default function Page() {
                     attempt: `#${i + 1}`,
                     Regional: data.regional[i] ? data.regional[i].queryDuration : null,
                     Global: data.global[i] ? data.global[i].queryDuration : null,
-                  };
-                })}
-                index="attempt"
-                categories={["Global", "Regional"]}
-                colors={["indigo", "cyan"]}
-                valueFormatter={dataFormatter}
-                yAxisWidth={48}
-              />
-            </Card>
-            <Card>
-              <Title>Latency distribution (end-to-end)</Title>
-              <Text>
-                This is the total latency from the client&apos;s perspective. It considers the total roundtrip between
-                browser and edge. Your internet connection and location <b>will</b> influence these results.
-              </Text>
-
-              <AreaChart
-                className="mt-6"
-                data={new Array(ATTEMPTS).fill(0).map((_, i) => {
-                  return {
-                    attempt: `#${i + 1}`,
-                    Regional: data.regional[i] ? data.regional[i].elapsed : null,
-                    Global: data.global[i] ? data.global[i].elapsed : null,
                   };
                 })}
                 index="attempt"
