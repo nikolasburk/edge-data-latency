@@ -72,10 +72,12 @@ export default function Page() {
           // planetscale
           "prisma-planetscale",
           "prisma-planetscale-tcp",
+          "drizzle-planetscale-tcp",
           "planetscale",
 
           // supabase
           "prisma-supabase-tcp",
+          "drizzle-supabase-tcp",
           "supabase",
         ],
       },
