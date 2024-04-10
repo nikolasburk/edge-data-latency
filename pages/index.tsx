@@ -6,7 +6,7 @@ import Head from "next/head";
 import GithubCorner from "@/components/github-corner";
 import { Location, Runtime, DataService, QueryCount } from "../prisma-results/prisma-client";
 
-const ATTEMPTS = 2;
+const ATTEMPTS = 10;
 
 type Region = "regional" | "global";
 
