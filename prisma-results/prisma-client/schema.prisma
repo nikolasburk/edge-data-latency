@@ -41,6 +41,13 @@ enum Location {
   Global
 }
 
+model FullTestRun {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  benchmarkRuns BenchmarkRun[]
+}
+
 model BenchmarkRun {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
@@ -56,4 +63,8 @@ model BenchmarkRun {
 
   // Result
   queryDuration Int
+
+  // Relation
+  fullTestRun   FullTestRun? @relation(fields: [fullTestRunId], references: [id])
+  fullTestRunId Int?
 }

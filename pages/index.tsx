@@ -5,6 +5,7 @@ import { CircleStackIcon, BoltIcon } from "@heroicons/react/16/solid";
 import Head from "next/head";
 import GithubCorner from "@/components/github-corner";
 import { Location, Runtime, DataService, QueryCount } from "../prisma-results/prisma-client";
+import prismaResults from "@/prisma-results";
 
 const ATTEMPTS = 10;
 
@@ -90,6 +91,8 @@ export default function Page() {
 
     console.log(`runAllTests:`, testConfig);
 
+    const fullTestRun = await prismaResults.fullTestRun.create({})
+
     const edgeServices = testConfig.dataService.edge;
     for (let dataService of edgeServices) {
       for (let queryCount of testConfig.queryCount) {
@@ -112,7 +115,8 @@ export default function Page() {
             "Edge",
             "Global",
             toQueryCount(queryCount),
-            globalValue.path
+            globalValue.path,
+            fullTestRun.id
           );
           setIsTestRunning(false);
         }
@@ -141,7 +145,8 @@ export default function Page() {
             "Node",
             "Global",
             toQueryCount(queryCount),
-            globalValue.path
+            globalValue.path,
+            fullTestRun.id
           );
           setIsTestRunning(false);
         }
@@ -192,7 +197,8 @@ export default function Page() {
         runtime,
         "Global",
         toQueryCount(queryCount),
-        globalValue.path
+        globalValue.path,
+        null
       );
       // }
 
@@ -521,7 +527,8 @@ async function writeResults(
   runtime: Runtime,
   location: Location,
   queryCount: QueryCount,
-  route: string
+  route: string,
+  fullTestRunId: number | null
 ) {
   const body = {
     queryDuration,
@@ -530,6 +537,7 @@ async function writeResults(
     location,
     queryCount,
     route,
+    fullTestRunId
   };
   console.log(`write results: `, body);
 

@@ -6,8 +6,7 @@ export const dynamic = "force-dynamic"; // static by default, unless reading the
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log(`url: `, req.url);
-  // console.log(`body: `, req.body);
-  const { dataService, runtime, location, queryCount, queryDuration, route } = req.body;
+  const { dataService, runtime, location, queryCount, queryDuration, route, fullTestRunId } = req.body;
 
   const result = await prismaResults.benchmarkRun.create({
     data: {
@@ -17,6 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       queryCount: queryCount as QueryCount,
       queryDuration: Number(queryDuration),
       route: route as string,
+      fullTestRunId
     },
   });
   console.log(`stored benchmark run: `, result)

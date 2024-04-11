@@ -119,6 +119,11 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.FullTestRunScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.BenchmarkRunScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
@@ -127,7 +132,8 @@ exports.Prisma.BenchmarkRunScalarFieldEnum = {
   location: 'location',
   queryCount: 'queryCount',
   route: 'route',
-  queryDuration: 'queryDuration'
+  queryDuration: 'queryDuration',
+  fullTestRunId: 'fullTestRunId'
 };
 
 exports.Prisma.SortOrder = {
@@ -138,6 +144,11 @@ exports.Prisma.SortOrder = {
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 exports.DataService = exports.$Enums.DataService = {
   Neon: 'Neon',
@@ -172,6 +183,7 @@ exports.QueryCount = exports.$Enums.QueryCount = {
 };
 
 exports.Prisma.ModelName = {
+  FullTestRun: 'FullTestRun',
   BenchmarkRun: 'BenchmarkRun'
 };
 

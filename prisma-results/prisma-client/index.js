@@ -88,6 +88,11 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.FullTestRunScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.BenchmarkRunScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
@@ -96,7 +101,8 @@ exports.Prisma.BenchmarkRunScalarFieldEnum = {
   location: 'location',
   queryCount: 'queryCount',
   route: 'route',
-  queryDuration: 'queryDuration'
+  queryDuration: 'queryDuration',
+  fullTestRunId: 'fullTestRunId'
 };
 
 exports.Prisma.SortOrder = {
@@ -107,6 +113,11 @@ exports.Prisma.SortOrder = {
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 exports.DataService = exports.$Enums.DataService = {
   Neon: 'Neon',
@@ -141,6 +152,7 @@ exports.QueryCount = exports.$Enums.QueryCount = {
 };
 
 exports.Prisma.ModelName = {
+  FullTestRun: 'FullTestRun',
   BenchmarkRun: 'BenchmarkRun'
 };
 /**
@@ -192,8 +204,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"./prisma-client\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"RESULTS_DATABASE_URL\")\n}\n\nenum DataService {\n  Neon\n  PrismaNeon\n  PrismaNeonTCP\n  DrizzleNeon\n  DrizzleNeonTCP\n  PlanetScale\n  PrismaPlanetScale\n  PrismaPlanetScaleTCP\n  DrizzlePlanetScale\n  DrizzlePlanetScaleTCP\n  Supabase\n  PrismaSupabaseTCP\n  DrizzleSupabaseTCP\n}\n\nenum Runtime {\n  Edge\n  Node\n}\n\nenum QueryCount {\n  One\n  Two\n  Five\n}\n\nenum Location {\n  Regional\n  Global\n}\n\nmodel BenchmarkRun {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n\n  // Benchmark run params\n  dataService DataService\n  runtime     Runtime\n  location    Location\n  queryCount  QueryCount\n\n  // Meta\n  route String\n\n  // Result\n  queryDuration Int\n}\n",
-  "inlineSchemaHash": "10b1256debc513ece0d546fb7498fc194348b94f1e5f280025455b460e89a983",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"./prisma-client\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"RESULTS_DATABASE_URL\")\n}\n\nenum DataService {\n  Neon\n  PrismaNeon\n  PrismaNeonTCP\n  DrizzleNeon\n  DrizzleNeonTCP\n  PlanetScale\n  PrismaPlanetScale\n  PrismaPlanetScaleTCP\n  DrizzlePlanetScale\n  DrizzlePlanetScaleTCP\n  Supabase\n  PrismaSupabaseTCP\n  DrizzleSupabaseTCP\n}\n\nenum Runtime {\n  Edge\n  Node\n}\n\nenum QueryCount {\n  One\n  Two\n  Five\n}\n\nenum Location {\n  Regional\n  Global\n}\n\nmodel FullTestRun {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n\n  benchmarkRuns BenchmarkRun[]\n}\n\nmodel BenchmarkRun {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n\n  // Benchmark run params\n  dataService DataService\n  runtime     Runtime\n  location    Location\n  queryCount  QueryCount\n\n  // Meta\n  route String\n\n  // Result\n  queryDuration Int\n\n  // Relation\n  fullTestRun   FullTestRun? @relation(fields: [fullTestRunId], references: [id])\n  fullTestRunId Int?\n}\n",
+  "inlineSchemaHash": "c3f2c9e173a0c0d11e61d8843ed2b4464e9f275cbb8ee0be7f76f198f3d35e96",
   "copyEngine": true
 }
 
@@ -214,7 +226,7 @@ if (!fs.existsSync(path.join(__dirname, 'schema.prisma'))) {
   config.isBundled = true
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"BenchmarkRun\":{\"dbName\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"default\":{\"name\":\"autoincrement\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"dataService\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DataService\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"runtime\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Runtime\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"location\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Location\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"queryCount\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"QueryCount\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"route\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"queryDuration\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Int\",\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false}},\"enums\":{\"DataService\":{\"values\":[{\"name\":\"Neon\",\"dbName\":null},{\"name\":\"PrismaNeon\",\"dbName\":null},{\"name\":\"PrismaNeonTCP\",\"dbName\":null},{\"name\":\"DrizzleNeon\",\"dbName\":null},{\"name\":\"DrizzleNeonTCP\",\"dbName\":null},{\"name\":\"PlanetScale\",\"dbName\":null},{\"name\":\"PrismaPlanetScale\",\"dbName\":null},{\"name\":\"PrismaPlanetScaleTCP\",\"dbName\":null},{\"name\":\"DrizzlePlanetScale\",\"dbName\":null},{\"name\":\"DrizzlePlanetScaleTCP\",\"dbName\":null},{\"name\":\"Supabase\",\"dbName\":null},{\"name\":\"PrismaSupabaseTCP\",\"dbName\":null},{\"name\":\"DrizzleSupabaseTCP\",\"dbName\":null}],\"dbName\":null},\"Runtime\":{\"values\":[{\"name\":\"Edge\",\"dbName\":null},{\"name\":\"Node\",\"dbName\":null}],\"dbName\":null},\"QueryCount\":{\"values\":[{\"name\":\"One\",\"dbName\":null},{\"name\":\"Two\",\"dbName\":null},{\"name\":\"Five\",\"dbName\":null}],\"dbName\":null},\"Location\":{\"values\":[{\"name\":\"Regional\",\"dbName\":null},{\"name\":\"Global\",\"dbName\":null}],\"dbName\":null}},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"FullTestRun\":{\"dbName\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"default\":{\"name\":\"autoincrement\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"benchmarkRuns\",\"kind\":\"object\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"BenchmarkRun\",\"relationName\":\"BenchmarkRunToFullTestRun\",\"relationFromFields\":[],\"relationToFields\":[],\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"BenchmarkRun\":{\"dbName\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"default\":{\"name\":\"autoincrement\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"dataService\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DataService\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"runtime\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Runtime\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"location\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Location\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"queryCount\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"QueryCount\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"route\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"queryDuration\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Int\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"fullTestRun\",\"kind\":\"object\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"FullTestRun\",\"relationName\":\"BenchmarkRunToFullTestRun\",\"relationFromFields\":[\"fullTestRunId\"],\"relationToFields\":[\"id\"],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"fullTestRunId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":true,\"hasDefaultValue\":false,\"type\":\"Int\",\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false}},\"enums\":{\"DataService\":{\"values\":[{\"name\":\"Neon\",\"dbName\":null},{\"name\":\"PrismaNeon\",\"dbName\":null},{\"name\":\"PrismaNeonTCP\",\"dbName\":null},{\"name\":\"DrizzleNeon\",\"dbName\":null},{\"name\":\"DrizzleNeonTCP\",\"dbName\":null},{\"name\":\"PlanetScale\",\"dbName\":null},{\"name\":\"PrismaPlanetScale\",\"dbName\":null},{\"name\":\"PrismaPlanetScaleTCP\",\"dbName\":null},{\"name\":\"DrizzlePlanetScale\",\"dbName\":null},{\"name\":\"DrizzlePlanetScaleTCP\",\"dbName\":null},{\"name\":\"Supabase\",\"dbName\":null},{\"name\":\"PrismaSupabaseTCP\",\"dbName\":null},{\"name\":\"DrizzleSupabaseTCP\",\"dbName\":null}],\"dbName\":null},\"Runtime\":{\"values\":[{\"name\":\"Edge\",\"dbName\":null},{\"name\":\"Node\",\"dbName\":null}],\"dbName\":null},\"QueryCount\":{\"values\":[{\"name\":\"One\",\"dbName\":null},{\"name\":\"Two\",\"dbName\":null},{\"name\":\"Five\",\"dbName\":null}],\"dbName\":null},\"Location\":{\"values\":[{\"name\":\"Regional\",\"dbName\":null},{\"name\":\"Global\",\"dbName\":null}],\"dbName\":null}},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = undefined
 

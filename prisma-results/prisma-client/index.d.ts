@@ -14,6 +14,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model FullTestRun
+ * 
+ */
+export type FullTestRun = $Result.DefaultSelection<Prisma.$FullTestRunPayload>
+/**
  * Model BenchmarkRun
  * 
  */
@@ -91,8 +96,8 @@ export const QueryCount: typeof $Enums.QueryCount
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more BenchmarkRuns
- * const benchmarkRuns = await prisma.benchmarkRun.findMany()
+ * // Fetch zero or more FullTestRuns
+ * const fullTestRuns = await prisma.fullTestRun.findMany()
  * ```
  *
  * 
@@ -112,8 +117,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more BenchmarkRuns
-   * const benchmarkRuns = await prisma.benchmarkRun.findMany()
+   * // Fetch zero or more FullTestRuns
+   * const fullTestRuns = await prisma.fullTestRun.findMany()
    * ```
    *
    * 
@@ -207,6 +212,16 @@ export class PrismaClient<
   $extends: $Extensions.ExtendsHook<'extends', Prisma.TypeMapCb, ExtArgs>
 
       /**
+   * `prisma.fullTestRun`: Exposes CRUD operations for the **FullTestRun** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FullTestRuns
+    * const fullTestRuns = await prisma.fullTestRun.findMany()
+    * ```
+    */
+  get fullTestRun(): Prisma.FullTestRunDelegate<ExtArgs>;
+
+  /**
    * `prisma.benchmarkRun`: Exposes CRUD operations for the **BenchmarkRun** model.
     * Example usage:
     * ```ts
@@ -685,6 +700,7 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    FullTestRun: 'FullTestRun',
     BenchmarkRun: 'BenchmarkRun'
   };
 
@@ -702,10 +718,76 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'benchmarkRun'
+      modelProps: 'fullTestRun' | 'benchmarkRun'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
+      FullTestRun: {
+        payload: Prisma.$FullTestRunPayload<ExtArgs>
+        fields: Prisma.FullTestRunFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FullTestRunFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FullTestRunPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FullTestRunFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FullTestRunPayload>
+          }
+          findFirst: {
+            args: Prisma.FullTestRunFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FullTestRunPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FullTestRunFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FullTestRunPayload>
+          }
+          findMany: {
+            args: Prisma.FullTestRunFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FullTestRunPayload>[]
+          }
+          create: {
+            args: Prisma.FullTestRunCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FullTestRunPayload>
+          }
+          createMany: {
+            args: Prisma.FullTestRunCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.FullTestRunDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FullTestRunPayload>
+          }
+          update: {
+            args: Prisma.FullTestRunUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FullTestRunPayload>
+          }
+          deleteMany: {
+            args: Prisma.FullTestRunDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FullTestRunUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.FullTestRunUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FullTestRunPayload>
+          }
+          aggregate: {
+            args: Prisma.FullTestRunAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateFullTestRun>
+          }
+          groupBy: {
+            args: Prisma.FullTestRunGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<FullTestRunGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FullTestRunCountArgs<ExtArgs>,
+            result: $Utils.Optional<FullTestRunCountAggregateOutputType> | number
+          }
+        }
+      }
       BenchmarkRun: {
         payload: Prisma.$BenchmarkRunPayload<ExtArgs>
         fields: Prisma.BenchmarkRunFieldRefs
@@ -926,10 +1008,985 @@ export namespace Prisma {
    */
 
 
+  /**
+   * Count Type FullTestRunCountOutputType
+   */
+
+  export type FullTestRunCountOutputType = {
+    benchmarkRuns: number
+  }
+
+  export type FullTestRunCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    benchmarkRuns?: boolean | FullTestRunCountOutputTypeCountBenchmarkRunsArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * FullTestRunCountOutputType without action
+   */
+  export type FullTestRunCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FullTestRunCountOutputType
+     */
+    select?: FullTestRunCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * FullTestRunCountOutputType without action
+   */
+  export type FullTestRunCountOutputTypeCountBenchmarkRunsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BenchmarkRunWhereInput
+  }
+
+
 
   /**
    * Models
    */
+
+  /**
+   * Model FullTestRun
+   */
+
+  export type AggregateFullTestRun = {
+    _count: FullTestRunCountAggregateOutputType | null
+    _avg: FullTestRunAvgAggregateOutputType | null
+    _sum: FullTestRunSumAggregateOutputType | null
+    _min: FullTestRunMinAggregateOutputType | null
+    _max: FullTestRunMaxAggregateOutputType | null
+  }
+
+  export type FullTestRunAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type FullTestRunSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type FullTestRunMinAggregateOutputType = {
+    id: number | null
+    createdAt: Date | null
+  }
+
+  export type FullTestRunMaxAggregateOutputType = {
+    id: number | null
+    createdAt: Date | null
+  }
+
+  export type FullTestRunCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type FullTestRunAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type FullTestRunSumAggregateInputType = {
+    id?: true
+  }
+
+  export type FullTestRunMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+  }
+
+  export type FullTestRunMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+  }
+
+  export type FullTestRunCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type FullTestRunAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FullTestRun to aggregate.
+     */
+    where?: FullTestRunWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FullTestRuns to fetch.
+     */
+    orderBy?: FullTestRunOrderByWithRelationInput | FullTestRunOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FullTestRunWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FullTestRuns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FullTestRuns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FullTestRuns
+    **/
+    _count?: true | FullTestRunCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FullTestRunAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FullTestRunSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FullTestRunMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FullTestRunMaxAggregateInputType
+  }
+
+  export type GetFullTestRunAggregateType<T extends FullTestRunAggregateArgs> = {
+        [P in keyof T & keyof AggregateFullTestRun]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFullTestRun[P]>
+      : GetScalarType<T[P], AggregateFullTestRun[P]>
+  }
+
+
+
+
+  export type FullTestRunGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FullTestRunWhereInput
+    orderBy?: FullTestRunOrderByWithAggregationInput | FullTestRunOrderByWithAggregationInput[]
+    by: FullTestRunScalarFieldEnum[] | FullTestRunScalarFieldEnum
+    having?: FullTestRunScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FullTestRunCountAggregateInputType | true
+    _avg?: FullTestRunAvgAggregateInputType
+    _sum?: FullTestRunSumAggregateInputType
+    _min?: FullTestRunMinAggregateInputType
+    _max?: FullTestRunMaxAggregateInputType
+  }
+
+  export type FullTestRunGroupByOutputType = {
+    id: number
+    createdAt: Date
+    _count: FullTestRunCountAggregateOutputType | null
+    _avg: FullTestRunAvgAggregateOutputType | null
+    _sum: FullTestRunSumAggregateOutputType | null
+    _min: FullTestRunMinAggregateOutputType | null
+    _max: FullTestRunMaxAggregateOutputType | null
+  }
+
+  type GetFullTestRunGroupByPayload<T extends FullTestRunGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FullTestRunGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FullTestRunGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FullTestRunGroupByOutputType[P]>
+            : GetScalarType<T[P], FullTestRunGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FullTestRunSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    benchmarkRuns?: boolean | FullTestRun$benchmarkRunsArgs<ExtArgs>
+    _count?: boolean | FullTestRunCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["fullTestRun"]>
+
+  export type FullTestRunSelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+  }
+
+  export type FullTestRunInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    benchmarkRuns?: boolean | FullTestRun$benchmarkRunsArgs<ExtArgs>
+    _count?: boolean | FullTestRunCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+
+  export type $FullTestRunPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FullTestRun"
+    objects: {
+      benchmarkRuns: Prisma.$BenchmarkRunPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      createdAt: Date
+    }, ExtArgs["result"]["fullTestRun"]>
+    composites: {}
+  }
+
+
+  type FullTestRunGetPayload<S extends boolean | null | undefined | FullTestRunDefaultArgs> = $Result.GetResult<Prisma.$FullTestRunPayload, S>
+
+  type FullTestRunCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<FullTestRunFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: FullTestRunCountAggregateInputType | true
+    }
+
+  export interface FullTestRunDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FullTestRun'], meta: { name: 'FullTestRun' } }
+    /**
+     * Find zero or one FullTestRun that matches the filter.
+     * @param {FullTestRunFindUniqueArgs} args - Arguments to find a FullTestRun
+     * @example
+     * // Get one FullTestRun
+     * const fullTestRun = await prisma.fullTestRun.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends FullTestRunFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, FullTestRunFindUniqueArgs<ExtArgs>>
+    ): Prisma__FullTestRunClient<$Result.GetResult<Prisma.$FullTestRunPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one FullTestRun that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {FullTestRunFindUniqueOrThrowArgs} args - Arguments to find a FullTestRun
+     * @example
+     * // Get one FullTestRun
+     * const fullTestRun = await prisma.fullTestRun.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends FullTestRunFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, FullTestRunFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__FullTestRunClient<$Result.GetResult<Prisma.$FullTestRunPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first FullTestRun that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FullTestRunFindFirstArgs} args - Arguments to find a FullTestRun
+     * @example
+     * // Get one FullTestRun
+     * const fullTestRun = await prisma.fullTestRun.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends FullTestRunFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, FullTestRunFindFirstArgs<ExtArgs>>
+    ): Prisma__FullTestRunClient<$Result.GetResult<Prisma.$FullTestRunPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first FullTestRun that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FullTestRunFindFirstOrThrowArgs} args - Arguments to find a FullTestRun
+     * @example
+     * // Get one FullTestRun
+     * const fullTestRun = await prisma.fullTestRun.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends FullTestRunFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, FullTestRunFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__FullTestRunClient<$Result.GetResult<Prisma.$FullTestRunPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more FullTestRuns that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FullTestRunFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FullTestRuns
+     * const fullTestRuns = await prisma.fullTestRun.findMany()
+     * 
+     * // Get first 10 FullTestRuns
+     * const fullTestRuns = await prisma.fullTestRun.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const fullTestRunWithIdOnly = await prisma.fullTestRun.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends FullTestRunFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, FullTestRunFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FullTestRunPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a FullTestRun.
+     * @param {FullTestRunCreateArgs} args - Arguments to create a FullTestRun.
+     * @example
+     * // Create one FullTestRun
+     * const FullTestRun = await prisma.fullTestRun.create({
+     *   data: {
+     *     // ... data to create a FullTestRun
+     *   }
+     * })
+     * 
+    **/
+    create<T extends FullTestRunCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, FullTestRunCreateArgs<ExtArgs>>
+    ): Prisma__FullTestRunClient<$Result.GetResult<Prisma.$FullTestRunPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many FullTestRuns.
+     *     @param {FullTestRunCreateManyArgs} args - Arguments to create many FullTestRuns.
+     *     @example
+     *     // Create many FullTestRuns
+     *     const fullTestRun = await prisma.fullTestRun.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends FullTestRunCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, FullTestRunCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a FullTestRun.
+     * @param {FullTestRunDeleteArgs} args - Arguments to delete one FullTestRun.
+     * @example
+     * // Delete one FullTestRun
+     * const FullTestRun = await prisma.fullTestRun.delete({
+     *   where: {
+     *     // ... filter to delete one FullTestRun
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends FullTestRunDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, FullTestRunDeleteArgs<ExtArgs>>
+    ): Prisma__FullTestRunClient<$Result.GetResult<Prisma.$FullTestRunPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one FullTestRun.
+     * @param {FullTestRunUpdateArgs} args - Arguments to update one FullTestRun.
+     * @example
+     * // Update one FullTestRun
+     * const fullTestRun = await prisma.fullTestRun.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends FullTestRunUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, FullTestRunUpdateArgs<ExtArgs>>
+    ): Prisma__FullTestRunClient<$Result.GetResult<Prisma.$FullTestRunPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more FullTestRuns.
+     * @param {FullTestRunDeleteManyArgs} args - Arguments to filter FullTestRuns to delete.
+     * @example
+     * // Delete a few FullTestRuns
+     * const { count } = await prisma.fullTestRun.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends FullTestRunDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, FullTestRunDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FullTestRuns.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FullTestRunUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FullTestRuns
+     * const fullTestRun = await prisma.fullTestRun.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends FullTestRunUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, FullTestRunUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one FullTestRun.
+     * @param {FullTestRunUpsertArgs} args - Arguments to update or create a FullTestRun.
+     * @example
+     * // Update or create a FullTestRun
+     * const fullTestRun = await prisma.fullTestRun.upsert({
+     *   create: {
+     *     // ... data to create a FullTestRun
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FullTestRun we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends FullTestRunUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, FullTestRunUpsertArgs<ExtArgs>>
+    ): Prisma__FullTestRunClient<$Result.GetResult<Prisma.$FullTestRunPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of FullTestRuns.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FullTestRunCountArgs} args - Arguments to filter FullTestRuns to count.
+     * @example
+     * // Count the number of FullTestRuns
+     * const count = await prisma.fullTestRun.count({
+     *   where: {
+     *     // ... the filter for the FullTestRuns we want to count
+     *   }
+     * })
+    **/
+    count<T extends FullTestRunCountArgs>(
+      args?: Subset<T, FullTestRunCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FullTestRunCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FullTestRun.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FullTestRunAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FullTestRunAggregateArgs>(args: Subset<T, FullTestRunAggregateArgs>): Prisma.PrismaPromise<GetFullTestRunAggregateType<T>>
+
+    /**
+     * Group by FullTestRun.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FullTestRunGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FullTestRunGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FullTestRunGroupByArgs['orderBy'] }
+        : { orderBy?: FullTestRunGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FullTestRunGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFullTestRunGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FullTestRun model
+   */
+  readonly fields: FullTestRunFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FullTestRun.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FullTestRunClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    benchmarkRuns<T extends FullTestRun$benchmarkRunsArgs<ExtArgs> = {}>(args?: Subset<T, FullTestRun$benchmarkRunsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BenchmarkRunPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the FullTestRun model
+   */ 
+  interface FullTestRunFieldRefs {
+    readonly id: FieldRef<"FullTestRun", 'Int'>
+    readonly createdAt: FieldRef<"FullTestRun", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * FullTestRun findUnique
+   */
+  export type FullTestRunFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FullTestRun
+     */
+    select?: FullTestRunSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FullTestRunInclude<ExtArgs> | null
+    /**
+     * Filter, which FullTestRun to fetch.
+     */
+    where: FullTestRunWhereUniqueInput
+  }
+
+
+  /**
+   * FullTestRun findUniqueOrThrow
+   */
+  export type FullTestRunFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FullTestRun
+     */
+    select?: FullTestRunSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FullTestRunInclude<ExtArgs> | null
+    /**
+     * Filter, which FullTestRun to fetch.
+     */
+    where: FullTestRunWhereUniqueInput
+  }
+
+
+  /**
+   * FullTestRun findFirst
+   */
+  export type FullTestRunFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FullTestRun
+     */
+    select?: FullTestRunSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FullTestRunInclude<ExtArgs> | null
+    /**
+     * Filter, which FullTestRun to fetch.
+     */
+    where?: FullTestRunWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FullTestRuns to fetch.
+     */
+    orderBy?: FullTestRunOrderByWithRelationInput | FullTestRunOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FullTestRuns.
+     */
+    cursor?: FullTestRunWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FullTestRuns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FullTestRuns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FullTestRuns.
+     */
+    distinct?: FullTestRunScalarFieldEnum | FullTestRunScalarFieldEnum[]
+  }
+
+
+  /**
+   * FullTestRun findFirstOrThrow
+   */
+  export type FullTestRunFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FullTestRun
+     */
+    select?: FullTestRunSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FullTestRunInclude<ExtArgs> | null
+    /**
+     * Filter, which FullTestRun to fetch.
+     */
+    where?: FullTestRunWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FullTestRuns to fetch.
+     */
+    orderBy?: FullTestRunOrderByWithRelationInput | FullTestRunOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FullTestRuns.
+     */
+    cursor?: FullTestRunWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FullTestRuns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FullTestRuns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FullTestRuns.
+     */
+    distinct?: FullTestRunScalarFieldEnum | FullTestRunScalarFieldEnum[]
+  }
+
+
+  /**
+   * FullTestRun findMany
+   */
+  export type FullTestRunFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FullTestRun
+     */
+    select?: FullTestRunSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FullTestRunInclude<ExtArgs> | null
+    /**
+     * Filter, which FullTestRuns to fetch.
+     */
+    where?: FullTestRunWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FullTestRuns to fetch.
+     */
+    orderBy?: FullTestRunOrderByWithRelationInput | FullTestRunOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FullTestRuns.
+     */
+    cursor?: FullTestRunWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FullTestRuns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FullTestRuns.
+     */
+    skip?: number
+    distinct?: FullTestRunScalarFieldEnum | FullTestRunScalarFieldEnum[]
+  }
+
+
+  /**
+   * FullTestRun create
+   */
+  export type FullTestRunCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FullTestRun
+     */
+    select?: FullTestRunSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FullTestRunInclude<ExtArgs> | null
+    /**
+     * The data needed to create a FullTestRun.
+     */
+    data?: XOR<FullTestRunCreateInput, FullTestRunUncheckedCreateInput>
+  }
+
+
+  /**
+   * FullTestRun createMany
+   */
+  export type FullTestRunCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FullTestRuns.
+     */
+    data: FullTestRunCreateManyInput | FullTestRunCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * FullTestRun update
+   */
+  export type FullTestRunUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FullTestRun
+     */
+    select?: FullTestRunSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FullTestRunInclude<ExtArgs> | null
+    /**
+     * The data needed to update a FullTestRun.
+     */
+    data: XOR<FullTestRunUpdateInput, FullTestRunUncheckedUpdateInput>
+    /**
+     * Choose, which FullTestRun to update.
+     */
+    where: FullTestRunWhereUniqueInput
+  }
+
+
+  /**
+   * FullTestRun updateMany
+   */
+  export type FullTestRunUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FullTestRuns.
+     */
+    data: XOR<FullTestRunUpdateManyMutationInput, FullTestRunUncheckedUpdateManyInput>
+    /**
+     * Filter which FullTestRuns to update
+     */
+    where?: FullTestRunWhereInput
+  }
+
+
+  /**
+   * FullTestRun upsert
+   */
+  export type FullTestRunUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FullTestRun
+     */
+    select?: FullTestRunSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FullTestRunInclude<ExtArgs> | null
+    /**
+     * The filter to search for the FullTestRun to update in case it exists.
+     */
+    where: FullTestRunWhereUniqueInput
+    /**
+     * In case the FullTestRun found by the `where` argument doesn't exist, create a new FullTestRun with this data.
+     */
+    create: XOR<FullTestRunCreateInput, FullTestRunUncheckedCreateInput>
+    /**
+     * In case the FullTestRun was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FullTestRunUpdateInput, FullTestRunUncheckedUpdateInput>
+  }
+
+
+  /**
+   * FullTestRun delete
+   */
+  export type FullTestRunDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FullTestRun
+     */
+    select?: FullTestRunSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FullTestRunInclude<ExtArgs> | null
+    /**
+     * Filter which FullTestRun to delete.
+     */
+    where: FullTestRunWhereUniqueInput
+  }
+
+
+  /**
+   * FullTestRun deleteMany
+   */
+  export type FullTestRunDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FullTestRuns to delete
+     */
+    where?: FullTestRunWhereInput
+  }
+
+
+  /**
+   * FullTestRun.benchmarkRuns
+   */
+  export type FullTestRun$benchmarkRunsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BenchmarkRun
+     */
+    select?: BenchmarkRunSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BenchmarkRunInclude<ExtArgs> | null
+    where?: BenchmarkRunWhereInput
+    orderBy?: BenchmarkRunOrderByWithRelationInput | BenchmarkRunOrderByWithRelationInput[]
+    cursor?: BenchmarkRunWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BenchmarkRunScalarFieldEnum | BenchmarkRunScalarFieldEnum[]
+  }
+
+
+  /**
+   * FullTestRun without action
+   */
+  export type FullTestRunDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FullTestRun
+     */
+    select?: FullTestRunSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FullTestRunInclude<ExtArgs> | null
+  }
+
+
 
   /**
    * Model BenchmarkRun
@@ -946,11 +2003,13 @@ export namespace Prisma {
   export type BenchmarkRunAvgAggregateOutputType = {
     id: number | null
     queryDuration: number | null
+    fullTestRunId: number | null
   }
 
   export type BenchmarkRunSumAggregateOutputType = {
     id: number | null
     queryDuration: number | null
+    fullTestRunId: number | null
   }
 
   export type BenchmarkRunMinAggregateOutputType = {
@@ -962,6 +2021,7 @@ export namespace Prisma {
     queryCount: $Enums.QueryCount | null
     route: string | null
     queryDuration: number | null
+    fullTestRunId: number | null
   }
 
   export type BenchmarkRunMaxAggregateOutputType = {
@@ -973,6 +2033,7 @@ export namespace Prisma {
     queryCount: $Enums.QueryCount | null
     route: string | null
     queryDuration: number | null
+    fullTestRunId: number | null
   }
 
   export type BenchmarkRunCountAggregateOutputType = {
@@ -984,6 +2045,7 @@ export namespace Prisma {
     queryCount: number
     route: number
     queryDuration: number
+    fullTestRunId: number
     _all: number
   }
 
@@ -991,11 +2053,13 @@ export namespace Prisma {
   export type BenchmarkRunAvgAggregateInputType = {
     id?: true
     queryDuration?: true
+    fullTestRunId?: true
   }
 
   export type BenchmarkRunSumAggregateInputType = {
     id?: true
     queryDuration?: true
+    fullTestRunId?: true
   }
 
   export type BenchmarkRunMinAggregateInputType = {
@@ -1007,6 +2071,7 @@ export namespace Prisma {
     queryCount?: true
     route?: true
     queryDuration?: true
+    fullTestRunId?: true
   }
 
   export type BenchmarkRunMaxAggregateInputType = {
@@ -1018,6 +2083,7 @@ export namespace Prisma {
     queryCount?: true
     route?: true
     queryDuration?: true
+    fullTestRunId?: true
   }
 
   export type BenchmarkRunCountAggregateInputType = {
@@ -1029,6 +2095,7 @@ export namespace Prisma {
     queryCount?: true
     route?: true
     queryDuration?: true
+    fullTestRunId?: true
     _all?: true
   }
 
@@ -1127,6 +2194,7 @@ export namespace Prisma {
     queryCount: $Enums.QueryCount
     route: string
     queryDuration: number
+    fullTestRunId: number | null
     _count: BenchmarkRunCountAggregateOutputType | null
     _avg: BenchmarkRunAvgAggregateOutputType | null
     _sum: BenchmarkRunSumAggregateOutputType | null
@@ -1157,6 +2225,8 @@ export namespace Prisma {
     queryCount?: boolean
     route?: boolean
     queryDuration?: boolean
+    fullTestRunId?: boolean
+    fullTestRun?: boolean | BenchmarkRun$fullTestRunArgs<ExtArgs>
   }, ExtArgs["result"]["benchmarkRun"]>
 
   export type BenchmarkRunSelectScalar = {
@@ -1168,12 +2238,19 @@ export namespace Prisma {
     queryCount?: boolean
     route?: boolean
     queryDuration?: boolean
+    fullTestRunId?: boolean
+  }
+
+  export type BenchmarkRunInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    fullTestRun?: boolean | BenchmarkRun$fullTestRunArgs<ExtArgs>
   }
 
 
   export type $BenchmarkRunPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "BenchmarkRun"
-    objects: {}
+    objects: {
+      fullTestRun: Prisma.$FullTestRunPayload<ExtArgs> | null
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       createdAt: Date
@@ -1183,6 +2260,7 @@ export namespace Prisma {
       queryCount: $Enums.QueryCount
       route: string
       queryDuration: number
+      fullTestRunId: number | null
     }, ExtArgs["result"]["benchmarkRun"]>
     composites: {}
   }
@@ -1548,6 +2626,7 @@ export namespace Prisma {
   export interface Prisma__BenchmarkRunClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
+    fullTestRun<T extends BenchmarkRun$fullTestRunArgs<ExtArgs> = {}>(args?: Subset<T, BenchmarkRun$fullTestRunArgs<ExtArgs>>): Prisma__FullTestRunClient<$Result.GetResult<Prisma.$FullTestRunPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1585,6 +2664,7 @@ export namespace Prisma {
     readonly queryCount: FieldRef<"BenchmarkRun", 'QueryCount'>
     readonly route: FieldRef<"BenchmarkRun", 'String'>
     readonly queryDuration: FieldRef<"BenchmarkRun", 'Int'>
+    readonly fullTestRunId: FieldRef<"BenchmarkRun", 'Int'>
   }
     
 
@@ -1598,6 +2678,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the BenchmarkRun
      */
     select?: BenchmarkRunSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BenchmarkRunInclude<ExtArgs> | null
     /**
      * Filter, which BenchmarkRun to fetch.
      */
@@ -1614,6 +2698,10 @@ export namespace Prisma {
      */
     select?: BenchmarkRunSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BenchmarkRunInclude<ExtArgs> | null
+    /**
      * Filter, which BenchmarkRun to fetch.
      */
     where: BenchmarkRunWhereUniqueInput
@@ -1628,6 +2716,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the BenchmarkRun
      */
     select?: BenchmarkRunSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BenchmarkRunInclude<ExtArgs> | null
     /**
      * Filter, which BenchmarkRun to fetch.
      */
@@ -1674,6 +2766,10 @@ export namespace Prisma {
      */
     select?: BenchmarkRunSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BenchmarkRunInclude<ExtArgs> | null
+    /**
      * Filter, which BenchmarkRun to fetch.
      */
     where?: BenchmarkRunWhereInput
@@ -1719,6 +2815,10 @@ export namespace Prisma {
      */
     select?: BenchmarkRunSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BenchmarkRunInclude<ExtArgs> | null
+    /**
      * Filter, which BenchmarkRuns to fetch.
      */
     where?: BenchmarkRunWhereInput
@@ -1759,6 +2859,10 @@ export namespace Prisma {
      */
     select?: BenchmarkRunSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BenchmarkRunInclude<ExtArgs> | null
+    /**
      * The data needed to create a BenchmarkRun.
      */
     data: XOR<BenchmarkRunCreateInput, BenchmarkRunUncheckedCreateInput>
@@ -1785,6 +2889,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the BenchmarkRun
      */
     select?: BenchmarkRunSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BenchmarkRunInclude<ExtArgs> | null
     /**
      * The data needed to update a BenchmarkRun.
      */
@@ -1820,6 +2928,10 @@ export namespace Prisma {
      */
     select?: BenchmarkRunSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BenchmarkRunInclude<ExtArgs> | null
+    /**
      * The filter to search for the BenchmarkRun to update in case it exists.
      */
     where: BenchmarkRunWhereUniqueInput
@@ -1843,6 +2955,10 @@ export namespace Prisma {
      */
     select?: BenchmarkRunSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BenchmarkRunInclude<ExtArgs> | null
+    /**
      * Filter which BenchmarkRun to delete.
      */
     where: BenchmarkRunWhereUniqueInput
@@ -1861,6 +2977,22 @@ export namespace Prisma {
 
 
   /**
+   * BenchmarkRun.fullTestRun
+   */
+  export type BenchmarkRun$fullTestRunArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FullTestRun
+     */
+    select?: FullTestRunSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FullTestRunInclude<ExtArgs> | null
+    where?: FullTestRunWhereInput
+  }
+
+
+  /**
    * BenchmarkRun without action
    */
   export type BenchmarkRunDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1868,6 +3000,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the BenchmarkRun
      */
     select?: BenchmarkRunSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BenchmarkRunInclude<ExtArgs> | null
   }
 
 
@@ -1886,6 +3022,14 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+  export const FullTestRunScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt'
+  };
+
+  export type FullTestRunScalarFieldEnum = (typeof FullTestRunScalarFieldEnum)[keyof typeof FullTestRunScalarFieldEnum]
+
+
   export const BenchmarkRunScalarFieldEnum: {
     id: 'id',
     createdAt: 'createdAt',
@@ -1894,7 +3038,8 @@ export namespace Prisma {
     location: 'location',
     queryCount: 'queryCount',
     route: 'route',
-    queryDuration: 'queryDuration'
+    queryDuration: 'queryDuration',
+    fullTestRunId: 'fullTestRunId'
   };
 
   export type BenchmarkRunScalarFieldEnum = (typeof BenchmarkRunScalarFieldEnum)[keyof typeof BenchmarkRunScalarFieldEnum]
@@ -1914,6 +3059,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -2036,6 +3189,48 @@ export namespace Prisma {
    */
 
 
+  export type FullTestRunWhereInput = {
+    AND?: FullTestRunWhereInput | FullTestRunWhereInput[]
+    OR?: FullTestRunWhereInput[]
+    NOT?: FullTestRunWhereInput | FullTestRunWhereInput[]
+    id?: IntFilter<"FullTestRun"> | number
+    createdAt?: DateTimeFilter<"FullTestRun"> | Date | string
+    benchmarkRuns?: BenchmarkRunListRelationFilter
+  }
+
+  export type FullTestRunOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    benchmarkRuns?: BenchmarkRunOrderByRelationAggregateInput
+  }
+
+  export type FullTestRunWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: FullTestRunWhereInput | FullTestRunWhereInput[]
+    OR?: FullTestRunWhereInput[]
+    NOT?: FullTestRunWhereInput | FullTestRunWhereInput[]
+    createdAt?: DateTimeFilter<"FullTestRun"> | Date | string
+    benchmarkRuns?: BenchmarkRunListRelationFilter
+  }, "id">
+
+  export type FullTestRunOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    _count?: FullTestRunCountOrderByAggregateInput
+    _avg?: FullTestRunAvgOrderByAggregateInput
+    _max?: FullTestRunMaxOrderByAggregateInput
+    _min?: FullTestRunMinOrderByAggregateInput
+    _sum?: FullTestRunSumOrderByAggregateInput
+  }
+
+  export type FullTestRunScalarWhereWithAggregatesInput = {
+    AND?: FullTestRunScalarWhereWithAggregatesInput | FullTestRunScalarWhereWithAggregatesInput[]
+    OR?: FullTestRunScalarWhereWithAggregatesInput[]
+    NOT?: FullTestRunScalarWhereWithAggregatesInput | FullTestRunScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"FullTestRun"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"FullTestRun"> | Date | string
+  }
+
   export type BenchmarkRunWhereInput = {
     AND?: BenchmarkRunWhereInput | BenchmarkRunWhereInput[]
     OR?: BenchmarkRunWhereInput[]
@@ -2048,6 +3243,8 @@ export namespace Prisma {
     queryCount?: EnumQueryCountFilter<"BenchmarkRun"> | $Enums.QueryCount
     route?: StringFilter<"BenchmarkRun"> | string
     queryDuration?: IntFilter<"BenchmarkRun"> | number
+    fullTestRunId?: IntNullableFilter<"BenchmarkRun"> | number | null
+    fullTestRun?: XOR<FullTestRunNullableRelationFilter, FullTestRunWhereInput> | null
   }
 
   export type BenchmarkRunOrderByWithRelationInput = {
@@ -2059,6 +3256,8 @@ export namespace Prisma {
     queryCount?: SortOrder
     route?: SortOrder
     queryDuration?: SortOrder
+    fullTestRunId?: SortOrderInput | SortOrder
+    fullTestRun?: FullTestRunOrderByWithRelationInput
   }
 
   export type BenchmarkRunWhereUniqueInput = Prisma.AtLeast<{
@@ -2073,6 +3272,8 @@ export namespace Prisma {
     queryCount?: EnumQueryCountFilter<"BenchmarkRun"> | $Enums.QueryCount
     route?: StringFilter<"BenchmarkRun"> | string
     queryDuration?: IntFilter<"BenchmarkRun"> | number
+    fullTestRunId?: IntNullableFilter<"BenchmarkRun"> | number | null
+    fullTestRun?: XOR<FullTestRunNullableRelationFilter, FullTestRunWhereInput> | null
   }, "id">
 
   export type BenchmarkRunOrderByWithAggregationInput = {
@@ -2084,6 +3285,7 @@ export namespace Prisma {
     queryCount?: SortOrder
     route?: SortOrder
     queryDuration?: SortOrder
+    fullTestRunId?: SortOrderInput | SortOrder
     _count?: BenchmarkRunCountOrderByAggregateInput
     _avg?: BenchmarkRunAvgOrderByAggregateInput
     _max?: BenchmarkRunMaxOrderByAggregateInput
@@ -2103,6 +3305,43 @@ export namespace Prisma {
     queryCount?: EnumQueryCountWithAggregatesFilter<"BenchmarkRun"> | $Enums.QueryCount
     route?: StringWithAggregatesFilter<"BenchmarkRun"> | string
     queryDuration?: IntWithAggregatesFilter<"BenchmarkRun"> | number
+    fullTestRunId?: IntNullableWithAggregatesFilter<"BenchmarkRun"> | number | null
+  }
+
+  export type FullTestRunCreateInput = {
+    createdAt?: Date | string
+    benchmarkRuns?: BenchmarkRunCreateNestedManyWithoutFullTestRunInput
+  }
+
+  export type FullTestRunUncheckedCreateInput = {
+    id?: number
+    createdAt?: Date | string
+    benchmarkRuns?: BenchmarkRunUncheckedCreateNestedManyWithoutFullTestRunInput
+  }
+
+  export type FullTestRunUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    benchmarkRuns?: BenchmarkRunUpdateManyWithoutFullTestRunNestedInput
+  }
+
+  export type FullTestRunUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    benchmarkRuns?: BenchmarkRunUncheckedUpdateManyWithoutFullTestRunNestedInput
+  }
+
+  export type FullTestRunCreateManyInput = {
+    id?: number
+    createdAt?: Date | string
+  }
+
+  export type FullTestRunUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FullTestRunUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BenchmarkRunCreateInput = {
@@ -2113,6 +3352,7 @@ export namespace Prisma {
     queryCount: $Enums.QueryCount
     route: string
     queryDuration: number
+    fullTestRun?: FullTestRunCreateNestedOneWithoutBenchmarkRunsInput
   }
 
   export type BenchmarkRunUncheckedCreateInput = {
@@ -2124,6 +3364,7 @@ export namespace Prisma {
     queryCount: $Enums.QueryCount
     route: string
     queryDuration: number
+    fullTestRunId?: number | null
   }
 
   export type BenchmarkRunUpdateInput = {
@@ -2134,6 +3375,7 @@ export namespace Prisma {
     queryCount?: EnumQueryCountFieldUpdateOperationsInput | $Enums.QueryCount
     route?: StringFieldUpdateOperationsInput | string
     queryDuration?: IntFieldUpdateOperationsInput | number
+    fullTestRun?: FullTestRunUpdateOneWithoutBenchmarkRunsNestedInput
   }
 
   export type BenchmarkRunUncheckedUpdateInput = {
@@ -2145,6 +3387,7 @@ export namespace Prisma {
     queryCount?: EnumQueryCountFieldUpdateOperationsInput | $Enums.QueryCount
     route?: StringFieldUpdateOperationsInput | string
     queryDuration?: IntFieldUpdateOperationsInput | number
+    fullTestRunId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type BenchmarkRunCreateManyInput = {
@@ -2156,6 +3399,7 @@ export namespace Prisma {
     queryCount: $Enums.QueryCount
     route: string
     queryDuration: number
+    fullTestRunId?: number | null
   }
 
   export type BenchmarkRunUpdateManyMutationInput = {
@@ -2177,6 +3421,7 @@ export namespace Prisma {
     queryCount?: EnumQueryCountFieldUpdateOperationsInput | $Enums.QueryCount
     route?: StringFieldUpdateOperationsInput | string
     queryDuration?: IntFieldUpdateOperationsInput | number
+    fullTestRunId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -2199,6 +3444,69 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type BenchmarkRunListRelationFilter = {
+    every?: BenchmarkRunWhereInput
+    some?: BenchmarkRunWhereInput
+    none?: BenchmarkRunWhereInput
+  }
+
+  export type BenchmarkRunOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FullTestRunCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type FullTestRunAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type FullTestRunMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type FullTestRunMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type FullTestRunSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type EnumDataServiceFilter<$PrismaModel = never> = {
@@ -2244,6 +3552,27 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type FullTestRunNullableRelationFilter = {
+    is?: FullTestRunWhereInput | null
+    isNot?: FullTestRunWhereInput | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type BenchmarkRunCountOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
@@ -2253,11 +3582,13 @@ export namespace Prisma {
     queryCount?: SortOrder
     route?: SortOrder
     queryDuration?: SortOrder
+    fullTestRunId?: SortOrder
   }
 
   export type BenchmarkRunAvgOrderByAggregateInput = {
     id?: SortOrder
     queryDuration?: SortOrder
+    fullTestRunId?: SortOrder
   }
 
   export type BenchmarkRunMaxOrderByAggregateInput = {
@@ -2269,6 +3600,7 @@ export namespace Prisma {
     queryCount?: SortOrder
     route?: SortOrder
     queryDuration?: SortOrder
+    fullTestRunId?: SortOrder
   }
 
   export type BenchmarkRunMinOrderByAggregateInput = {
@@ -2280,41 +3612,13 @@ export namespace Prisma {
     queryCount?: SortOrder
     route?: SortOrder
     queryDuration?: SortOrder
+    fullTestRunId?: SortOrder
   }
 
   export type BenchmarkRunSumOrderByAggregateInput = {
     id?: SortOrder
     queryDuration?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
+    fullTestRunId?: SortOrder
   }
 
   export type EnumDataServiceWithAggregatesFilter<$PrismaModel = never> = {
@@ -2375,8 +3679,80 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type BenchmarkRunCreateNestedManyWithoutFullTestRunInput = {
+    create?: XOR<BenchmarkRunCreateWithoutFullTestRunInput, BenchmarkRunUncheckedCreateWithoutFullTestRunInput> | BenchmarkRunCreateWithoutFullTestRunInput[] | BenchmarkRunUncheckedCreateWithoutFullTestRunInput[]
+    connectOrCreate?: BenchmarkRunCreateOrConnectWithoutFullTestRunInput | BenchmarkRunCreateOrConnectWithoutFullTestRunInput[]
+    createMany?: BenchmarkRunCreateManyFullTestRunInputEnvelope
+    connect?: BenchmarkRunWhereUniqueInput | BenchmarkRunWhereUniqueInput[]
+  }
+
+  export type BenchmarkRunUncheckedCreateNestedManyWithoutFullTestRunInput = {
+    create?: XOR<BenchmarkRunCreateWithoutFullTestRunInput, BenchmarkRunUncheckedCreateWithoutFullTestRunInput> | BenchmarkRunCreateWithoutFullTestRunInput[] | BenchmarkRunUncheckedCreateWithoutFullTestRunInput[]
+    connectOrCreate?: BenchmarkRunCreateOrConnectWithoutFullTestRunInput | BenchmarkRunCreateOrConnectWithoutFullTestRunInput[]
+    createMany?: BenchmarkRunCreateManyFullTestRunInputEnvelope
+    connect?: BenchmarkRunWhereUniqueInput | BenchmarkRunWhereUniqueInput[]
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type BenchmarkRunUpdateManyWithoutFullTestRunNestedInput = {
+    create?: XOR<BenchmarkRunCreateWithoutFullTestRunInput, BenchmarkRunUncheckedCreateWithoutFullTestRunInput> | BenchmarkRunCreateWithoutFullTestRunInput[] | BenchmarkRunUncheckedCreateWithoutFullTestRunInput[]
+    connectOrCreate?: BenchmarkRunCreateOrConnectWithoutFullTestRunInput | BenchmarkRunCreateOrConnectWithoutFullTestRunInput[]
+    upsert?: BenchmarkRunUpsertWithWhereUniqueWithoutFullTestRunInput | BenchmarkRunUpsertWithWhereUniqueWithoutFullTestRunInput[]
+    createMany?: BenchmarkRunCreateManyFullTestRunInputEnvelope
+    set?: BenchmarkRunWhereUniqueInput | BenchmarkRunWhereUniqueInput[]
+    disconnect?: BenchmarkRunWhereUniqueInput | BenchmarkRunWhereUniqueInput[]
+    delete?: BenchmarkRunWhereUniqueInput | BenchmarkRunWhereUniqueInput[]
+    connect?: BenchmarkRunWhereUniqueInput | BenchmarkRunWhereUniqueInput[]
+    update?: BenchmarkRunUpdateWithWhereUniqueWithoutFullTestRunInput | BenchmarkRunUpdateWithWhereUniqueWithoutFullTestRunInput[]
+    updateMany?: BenchmarkRunUpdateManyWithWhereWithoutFullTestRunInput | BenchmarkRunUpdateManyWithWhereWithoutFullTestRunInput[]
+    deleteMany?: BenchmarkRunScalarWhereInput | BenchmarkRunScalarWhereInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type BenchmarkRunUncheckedUpdateManyWithoutFullTestRunNestedInput = {
+    create?: XOR<BenchmarkRunCreateWithoutFullTestRunInput, BenchmarkRunUncheckedCreateWithoutFullTestRunInput> | BenchmarkRunCreateWithoutFullTestRunInput[] | BenchmarkRunUncheckedCreateWithoutFullTestRunInput[]
+    connectOrCreate?: BenchmarkRunCreateOrConnectWithoutFullTestRunInput | BenchmarkRunCreateOrConnectWithoutFullTestRunInput[]
+    upsert?: BenchmarkRunUpsertWithWhereUniqueWithoutFullTestRunInput | BenchmarkRunUpsertWithWhereUniqueWithoutFullTestRunInput[]
+    createMany?: BenchmarkRunCreateManyFullTestRunInputEnvelope
+    set?: BenchmarkRunWhereUniqueInput | BenchmarkRunWhereUniqueInput[]
+    disconnect?: BenchmarkRunWhereUniqueInput | BenchmarkRunWhereUniqueInput[]
+    delete?: BenchmarkRunWhereUniqueInput | BenchmarkRunWhereUniqueInput[]
+    connect?: BenchmarkRunWhereUniqueInput | BenchmarkRunWhereUniqueInput[]
+    update?: BenchmarkRunUpdateWithWhereUniqueWithoutFullTestRunInput | BenchmarkRunUpdateWithWhereUniqueWithoutFullTestRunInput[]
+    updateMany?: BenchmarkRunUpdateManyWithWhereWithoutFullTestRunInput | BenchmarkRunUpdateManyWithWhereWithoutFullTestRunInput[]
+    deleteMany?: BenchmarkRunScalarWhereInput | BenchmarkRunScalarWhereInput[]
+  }
+
+  export type FullTestRunCreateNestedOneWithoutBenchmarkRunsInput = {
+    create?: XOR<FullTestRunCreateWithoutBenchmarkRunsInput, FullTestRunUncheckedCreateWithoutBenchmarkRunsInput>
+    connectOrCreate?: FullTestRunCreateOrConnectWithoutBenchmarkRunsInput
+    connect?: FullTestRunWhereUniqueInput
   }
 
   export type EnumDataServiceFieldUpdateOperationsInput = {
@@ -2399,8 +3775,18 @@ export namespace Prisma {
     set?: string
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
+  export type FullTestRunUpdateOneWithoutBenchmarkRunsNestedInput = {
+    create?: XOR<FullTestRunCreateWithoutBenchmarkRunsInput, FullTestRunUncheckedCreateWithoutBenchmarkRunsInput>
+    connectOrCreate?: FullTestRunCreateOrConnectWithoutBenchmarkRunsInput
+    upsert?: FullTestRunUpsertWithoutBenchmarkRunsInput
+    disconnect?: FullTestRunWhereInput | boolean
+    delete?: FullTestRunWhereInput | boolean
+    connect?: FullTestRunWhereUniqueInput
+    update?: XOR<XOR<FullTestRunUpdateToOneWithWhereWithoutBenchmarkRunsInput, FullTestRunUpdateWithoutBenchmarkRunsInput>, FullTestRunUncheckedUpdateWithoutBenchmarkRunsInput>
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
     increment?: number
     decrement?: number
     multiply?: number
@@ -2427,6 +3813,47 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedEnumDataServiceFilter<$PrismaModel = never> = {
@@ -2471,45 +3898,15 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedEnumDataServiceWithAggregatesFilter<$PrismaModel = never> = {
@@ -2569,11 +3966,185 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type BenchmarkRunCreateWithoutFullTestRunInput = {
+    createdAt?: Date | string
+    dataService: $Enums.DataService
+    runtime: $Enums.Runtime
+    location: $Enums.Location
+    queryCount: $Enums.QueryCount
+    route: string
+    queryDuration: number
+  }
+
+  export type BenchmarkRunUncheckedCreateWithoutFullTestRunInput = {
+    id?: number
+    createdAt?: Date | string
+    dataService: $Enums.DataService
+    runtime: $Enums.Runtime
+    location: $Enums.Location
+    queryCount: $Enums.QueryCount
+    route: string
+    queryDuration: number
+  }
+
+  export type BenchmarkRunCreateOrConnectWithoutFullTestRunInput = {
+    where: BenchmarkRunWhereUniqueInput
+    create: XOR<BenchmarkRunCreateWithoutFullTestRunInput, BenchmarkRunUncheckedCreateWithoutFullTestRunInput>
+  }
+
+  export type BenchmarkRunCreateManyFullTestRunInputEnvelope = {
+    data: BenchmarkRunCreateManyFullTestRunInput | BenchmarkRunCreateManyFullTestRunInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BenchmarkRunUpsertWithWhereUniqueWithoutFullTestRunInput = {
+    where: BenchmarkRunWhereUniqueInput
+    update: XOR<BenchmarkRunUpdateWithoutFullTestRunInput, BenchmarkRunUncheckedUpdateWithoutFullTestRunInput>
+    create: XOR<BenchmarkRunCreateWithoutFullTestRunInput, BenchmarkRunUncheckedCreateWithoutFullTestRunInput>
+  }
+
+  export type BenchmarkRunUpdateWithWhereUniqueWithoutFullTestRunInput = {
+    where: BenchmarkRunWhereUniqueInput
+    data: XOR<BenchmarkRunUpdateWithoutFullTestRunInput, BenchmarkRunUncheckedUpdateWithoutFullTestRunInput>
+  }
+
+  export type BenchmarkRunUpdateManyWithWhereWithoutFullTestRunInput = {
+    where: BenchmarkRunScalarWhereInput
+    data: XOR<BenchmarkRunUpdateManyMutationInput, BenchmarkRunUncheckedUpdateManyWithoutFullTestRunInput>
+  }
+
+  export type BenchmarkRunScalarWhereInput = {
+    AND?: BenchmarkRunScalarWhereInput | BenchmarkRunScalarWhereInput[]
+    OR?: BenchmarkRunScalarWhereInput[]
+    NOT?: BenchmarkRunScalarWhereInput | BenchmarkRunScalarWhereInput[]
+    id?: IntFilter<"BenchmarkRun"> | number
+    createdAt?: DateTimeFilter<"BenchmarkRun"> | Date | string
+    dataService?: EnumDataServiceFilter<"BenchmarkRun"> | $Enums.DataService
+    runtime?: EnumRuntimeFilter<"BenchmarkRun"> | $Enums.Runtime
+    location?: EnumLocationFilter<"BenchmarkRun"> | $Enums.Location
+    queryCount?: EnumQueryCountFilter<"BenchmarkRun"> | $Enums.QueryCount
+    route?: StringFilter<"BenchmarkRun"> | string
+    queryDuration?: IntFilter<"BenchmarkRun"> | number
+    fullTestRunId?: IntNullableFilter<"BenchmarkRun"> | number | null
+  }
+
+  export type FullTestRunCreateWithoutBenchmarkRunsInput = {
+    createdAt?: Date | string
+  }
+
+  export type FullTestRunUncheckedCreateWithoutBenchmarkRunsInput = {
+    id?: number
+    createdAt?: Date | string
+  }
+
+  export type FullTestRunCreateOrConnectWithoutBenchmarkRunsInput = {
+    where: FullTestRunWhereUniqueInput
+    create: XOR<FullTestRunCreateWithoutBenchmarkRunsInput, FullTestRunUncheckedCreateWithoutBenchmarkRunsInput>
+  }
+
+  export type FullTestRunUpsertWithoutBenchmarkRunsInput = {
+    update: XOR<FullTestRunUpdateWithoutBenchmarkRunsInput, FullTestRunUncheckedUpdateWithoutBenchmarkRunsInput>
+    create: XOR<FullTestRunCreateWithoutBenchmarkRunsInput, FullTestRunUncheckedCreateWithoutBenchmarkRunsInput>
+    where?: FullTestRunWhereInput
+  }
+
+  export type FullTestRunUpdateToOneWithWhereWithoutBenchmarkRunsInput = {
+    where?: FullTestRunWhereInput
+    data: XOR<FullTestRunUpdateWithoutBenchmarkRunsInput, FullTestRunUncheckedUpdateWithoutBenchmarkRunsInput>
+  }
+
+  export type FullTestRunUpdateWithoutBenchmarkRunsInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FullTestRunUncheckedUpdateWithoutBenchmarkRunsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BenchmarkRunCreateManyFullTestRunInput = {
+    id?: number
+    createdAt?: Date | string
+    dataService: $Enums.DataService
+    runtime: $Enums.Runtime
+    location: $Enums.Location
+    queryCount: $Enums.QueryCount
+    route: string
+    queryDuration: number
+  }
+
+  export type BenchmarkRunUpdateWithoutFullTestRunInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataService?: EnumDataServiceFieldUpdateOperationsInput | $Enums.DataService
+    runtime?: EnumRuntimeFieldUpdateOperationsInput | $Enums.Runtime
+    location?: EnumLocationFieldUpdateOperationsInput | $Enums.Location
+    queryCount?: EnumQueryCountFieldUpdateOperationsInput | $Enums.QueryCount
+    route?: StringFieldUpdateOperationsInput | string
+    queryDuration?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BenchmarkRunUncheckedUpdateWithoutFullTestRunInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataService?: EnumDataServiceFieldUpdateOperationsInput | $Enums.DataService
+    runtime?: EnumRuntimeFieldUpdateOperationsInput | $Enums.Runtime
+    location?: EnumLocationFieldUpdateOperationsInput | $Enums.Location
+    queryCount?: EnumQueryCountFieldUpdateOperationsInput | $Enums.QueryCount
+    route?: StringFieldUpdateOperationsInput | string
+    queryDuration?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BenchmarkRunUncheckedUpdateManyWithoutFullTestRunInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataService?: EnumDataServiceFieldUpdateOperationsInput | $Enums.DataService
+    runtime?: EnumRuntimeFieldUpdateOperationsInput | $Enums.Runtime
+    location?: EnumLocationFieldUpdateOperationsInput | $Enums.Location
+    queryCount?: EnumQueryCountFieldUpdateOperationsInput | $Enums.QueryCount
+    route?: StringFieldUpdateOperationsInput | string
+    queryDuration?: IntFieldUpdateOperationsInput | number
+  }
+
 
 
   /**
    * Aliases for legacy arg types
    */
+    /**
+     * @deprecated Use FullTestRunCountOutputTypeDefaultArgs instead
+     */
+    export type FullTestRunCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FullTestRunCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use FullTestRunDefaultArgs instead
+     */
+    export type FullTestRunArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FullTestRunDefaultArgs<ExtArgs>
     /**
      * @deprecated Use BenchmarkRunDefaultArgs instead
      */
