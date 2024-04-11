@@ -16,7 +16,7 @@ export default function Page() {
   // const [shouldTestRegional, setShouldTestRegional] = useState(true);
   const [runtime, setRuntime] = useState("Edge" as Runtime);
   const [queryCount, setQueryCount] = useState(1);
-  const [dataService, setDataService] = useState(undefined as DataService);
+  const [dataService, setDataService] = useState(undefined);
   const [data, setData] = useState({
     regional: [],
     global: [],
@@ -24,6 +24,11 @@ export default function Page() {
 
   const runTest = useCallback(async (runtime: Runtime, dataService: string, type: Region, queryCount: number) => {
     console.log(`runTest:`, runtime, dataService, type, queryCount);
+
+    if (runtime === "Edge" && dataService.includes("tcp")) {
+      console.log(`test not available for ${dataService} on Edge`);
+      return null;
+    }
 
     const lowercaseRuntime = (runtime as string).toLowerCase();
     const path = `/api/${lowercaseRuntime}/${dataService}-${type}?count=${queryCount}`;
@@ -173,7 +178,7 @@ export default function Page() {
 
       // if (shouldTestGlobal) {
       globalValue = await runTest(runtime, dataService, "global", queryCount);
-      console.log(`globalValue`, globalValue)
+      console.log(`globalValue`, globalValue);
 
       if (globalValue === null || globalValue.data.length !== 10) {
         console.log(`Data query wasn't successful.`);
@@ -412,7 +417,7 @@ export default function Page() {
             data-testid="run-test"
             onClick={onRunTest}
             loading={isTestRunning}
-            disabled={dataService === null}
+            disabled={dataService === undefined || (runtime == "Edge" && dataService.includes('tcp')) }
           >
             Run Test
           </Button>
