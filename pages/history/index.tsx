@@ -14,19 +14,9 @@ export const getServerSideProps = async () => {
   const fullTestRuns = await prismaResults.fullTestRun.findMany({
     select: {
       id: true,
-      // benchmarkRuns: {
-      //   select: {
-      //     queryDuration: true,
-      //     dataService: true,
-      //     queryCount: true,
-      //     runtime: true,
-      //   },
-      // },
     },
   });
   console.dir(fullTestRuns, { depth: null });
-
-  // Pass data to the page via props
   return { props: { fullTestRuns } };
 }; // satisfies GetServerSideProps<{ fullTestRuns: BenchmarkRunData[] }>
 
@@ -34,12 +24,12 @@ export default function Page({ fullTestRuns }) {
   const router = useRouter();
 
   return (
-    <div>
+    <div className="flex flex-col m-14">
       {fullTestRuns.map((fullTestRun) => {
         return (
-          <div className="flex flex-row gap-1" key={fullTestRun.id}>
-            <div>{fullTestRun.id}</div>
-            <Button onClick={() => router.push(`/history/${fullTestRun.id}`)}>View</Button>
+          <div className="flex flex-row justify-between items-center w-full p-2 border-b border-gray-300" key={fullTestRun.id}>
+            <div className="flex-grow">Benchmark run: {fullTestRun.id}</div>
+            <Button className="ml-2" onClick={() => router.push(`/history/${fullTestRun.id}`)}>View</Button>
           </div>
         );
       })}
