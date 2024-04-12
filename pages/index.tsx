@@ -5,7 +5,7 @@ import { CircleStackIcon, BoltIcon } from "@heroicons/react/16/solid";
 import Head from "next/head";
 import GithubCorner from "@/components/github-corner";
 import { Location, Runtime, DataService, QueryCount } from "../prisma-results/prisma-client";
-import prismaResults from "@/prisma-results";
+import { useRouter } from "next/router";
 
 const ATTEMPTS = 10;
 
@@ -22,6 +22,8 @@ export default function Page() {
     regional: [],
     global: [],
   });
+
+  const router = useRouter();
 
   const runTest = useCallback(async (runtime: Runtime, dataService: string, type: Region, queryCount: number) => {
     console.log(`runTest:`, runtime, dataService, type, queryCount);
@@ -91,7 +93,8 @@ export default function Page() {
 
     console.log(`runAllTests:`, testConfig);
 
-    const fullTestRun = await prismaResults.fullTestRun.create({})
+    const fullTestRunId = await createFullTestRun()
+    console.log(`fullTestRunId:`, fullTestRunId);
 
     const edgeServices = testConfig.dataService.edge;
     for (let dataService of edgeServices) {
@@ -116,7 +119,7 @@ export default function Page() {
             "Global",
             toQueryCount(queryCount),
             globalValue.path,
-            fullTestRun.id
+            fullTestRunId
           );
           setIsTestRunning(false);
         }
@@ -146,7 +149,7 @@ export default function Page() {
             "Global",
             toQueryCount(queryCount),
             globalValue.path,
-            fullTestRun.id
+            fullTestRunId
           );
           setIsTestRunning(false);
         }
@@ -439,6 +442,14 @@ export default function Page() {
           >
             Run All Tests
           </Button>
+          <Button
+            className="ml-4"
+            type="button"
+            onClick={() => router.push(`/history`)}
+            // disabled={dataService === null}
+          >
+            View Test History
+          </Button>
         </div>
         {data.regional.length || data.global.length ? (
           <Grid className="gap-5" numItems={1} numItemsMd={2}>
@@ -521,6 +532,32 @@ function toQueryCount(queryCount: number): QueryCount | null {
   }
 }
 
+async function createFullTestRun(): Promise<number | null> {
+  console.log(`create full test run`);
+
+  try {
+    const response = await fetch("/api/full-test-run", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Network response was not ok: ${response}`);
+    }
+
+    const fullTestRun = await response.json()
+    if (fullTestRun.id) {
+      return Number(fullTestRun.id)
+    }
+
+    return null
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
 async function writeResults(
   queryDuration: number,
   dataService: DataService,
@@ -554,12 +591,8 @@ async function writeResults(
       throw new Error(`Network response was not ok: ${response}`);
     }
 
-    // const responseData = await response.json();
-    // console.log("Response from server:", responseData);
-    // Handle the response from the server as needed
   } catch (error) {
     console.error("Error:", error);
-    // Handle errors
   }
 }
 
