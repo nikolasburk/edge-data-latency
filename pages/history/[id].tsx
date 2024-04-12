@@ -1,5 +1,5 @@
 import prismaResults from "@/prisma-results";
-import { Prisma, DataService } from "@/prisma-results/prisma-client";
+import { Prisma } from "@/prisma-results/prisma-client";
 import { GetServerSideProps } from "next";
 import { AreaChart } from "@tremor/react";
 
@@ -63,7 +63,7 @@ export default function Page({ fullTestRun }) {
   console.log(benchmarkChartData);
 
   return (
-    <div key={fullTestRun.id}>
+    <div className="m-14" key={fullTestRun.id}>
       {Object.keys(benchmarkChartData).map((key) => {
         console.log(`key: `, key);
         const finalChartData = transformToFinalChartData(benchmarkChartData[key]);
@@ -82,27 +82,6 @@ export default function Page({ fullTestRun }) {
               valueFormatter={dataFormatter}
               yAxisWidth={48}
             />
-            {/* <ul>
-              {Object.entries(benchmarkChartData[key]).map(([dataService, durations]) => (
-                <div key={dataService}>
-                  <strong>{dataService}:</strong>
-                  <AreaChart
-                    className="mt-6"
-                    data={durations.map((duration, i) => {
-                      return {
-                        index: i,
-                        duration,
-                      };
-                    })}
-                    index="index"
-                    categories={["duration"]}
-                    colors={["indigo"]}
-                    valueFormatter={dataFormatter}
-                    yAxisWidth={48}
-                  />
-                </div>
-              ))}
-            </ul> */}
           </div>
         );
       })}
@@ -110,8 +89,11 @@ export default function Page({ fullTestRun }) {
   );
 }
 
-const colorsEdge = ["green", "blue", "red", "indigo", "pink", "yellow", "black"]
-const colorsNode = ["green", "blue", "red", "indigo", "pink", "yellow", "black", "orange", "purple", "brown", "cyan", "gray", "pink"]
+// PrismaNeon, DrizzleNeon, Neon, PrismaPlanetScale, DrizzlePlanetScale, PlanetScale, Supabase
+const colorsEdge = ["green", "purple", "yellow", "emerald", "fuchsia", "amber", "orange"]
+
+// // PrismaNeon, PrismaNeonTCP, DrizzleNeon, DrizzleNeonTCP, Neon, PrismaPlanetScale, PrismaPlanetScaleTCP, DrizzlePlanetScale, DrizzlePlanetScaleTCP, PlanetScale, PrismaSupabaseTCP, DrizzleSupabaseTCP, Supabase
+const colorsNode = ["green", "lime", "purple", "violet", "yellow", "emerald", "teal", "fuchsia", "pink", "amber", "cyan", "rose", "orange"]
 
 function transformToFinalChartData(inputData) {
   const transformedArray = [];
