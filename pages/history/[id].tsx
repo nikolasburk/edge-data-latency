@@ -72,7 +72,7 @@ export default function Page({ fullTestRun }) {
         console.log(`categories: `, categories);
         return (
           <div key={key}>
-            <h1 className="text-3xl font-bold text-gray-900">{key}</h1>
+            <h1 className="text-3xl font-bold text-gray-900">{readableSectionName(key)}</h1>
             <AreaChart
               className="mt-6"
               data={finalChartData}
@@ -117,4 +117,19 @@ function transformToFinalChartData(inputData) {
   return transformedArray;
 }
 
-const dataFormatter = (number: number) => `${Intl.NumberFormat("us").format(number).toString()}ms`;
+function readableSectionName(sectionTitle: string): string {
+
+  const mapping = {
+    "Edge-One": "Runtime: Edge (Queries: 1)",
+    "Edge-Two": "Runtime: Edge (Queries: 2)",
+    "Edge-Five": "Runtime: Edge (Queries: 5)",
+    "Node-One": "Runtime: Node (Queries: 1)",
+    "Node-Two": "Runtime: Node (Queries: 2)",
+    "Node-Five": "Runtime: Node (Queries: 5)",
+  }
+  return mapping[sectionTitle]
+
+}
+
+// const dataFormatter = (number: number) => `${Intl.NumberFormat("us").format(number).toString()}ms`;
+const dataFormatter = (number: number) => `${number.toString()}`;
